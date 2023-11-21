@@ -1,3 +1,5 @@
+11월 2주차
+===
 
 [16일]
 - 최근 스프링 공식문서를 번역해보면서 공부중인데 사소한 디테일까지 알게되는것 같아 생각보다 재미있다. \
@@ -18,4 +20,7 @@ DI는 의존성 주입을 나타내며, 한 객체가 다른 객체에 필요한
   - Event publication (이벤트 개시)
   - Application-layer specific contexts such as the WebApplicationContext for use in web applications. (웹 응용 프로그램에서 사용하는 `WebApplicationContext`와 같은 응용 프로그램 레이어별 특정 컨텍스트.)
 
+11월 3주차
+===
+번역한거 정리
 
