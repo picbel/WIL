@@ -29,7 +29,8 @@ DI는 의존성 주입을 나타내며, 한 객체가 다른 객체에 필요한
   스프링에선 DI를 하면 장점을 코드가 더 깔끔하고, 결합도를 효과적으로 낮출 수 있고 테스트하기도 더 쉬워진다고 합니다.
 
 - DI의 2가지 방법
-크게 2가지 방법이 있는데 `생성자 기반 의존성 주입(Constructor-based dependency injection)` 과 `세터 기반 의존성 주입(Setter-based dependency injection)` 가 있습니다
+크게 2가지 방법이 있는데 `생성자 기반 의존성 주입(Constructor-based dependency injection)` 과 `세터 기반 의존성 주입(Setter-based dependency injection)` 가 있습니다.
+
 스프링은 2가지 방법중 권장하는 방법은 `생성자 기반 의존성 주입(Constructor-based dependency injection)` 입니다.
 다음과 같은 이유로 생성자 기반 의존성 주입을 권장합니다.
 1. 애플리케이션 구성요소를 변경할 수 없는 불변객체로 구현하고 필수 의존성이 null이 아님을 보장할 수 있습니다.
