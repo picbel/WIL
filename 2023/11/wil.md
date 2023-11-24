@@ -61,6 +61,7 @@ Spring은 속성을 설정하고 의존성을 해결하는 시기를 가능한 �
 
 순환 의존성이 없는 경우, 하나 이상의 협력 bean이 종속 bean에 주입될 때 각 협력 bean은 종속 bean에 주입되기 전에 완전히 구성됩니다. 이것은 bean A가 bean B에 종속성을 가지는 경우, Spring IoC 컨테이너가 bean B를 먼저 완전히 구성한 다음 bean A의 세터 메서드를 호출하기 전에 구성한다는 것을 의미합니다. 다시 말해 bean은 (미리 인스턴트화되지 않은 경우) 인스턴스화되고, 해당 의존성이 설정되며, 관련된 라이프사이클 메서드(구성된 초기화 메서드 또는 InitializingBean 콜백 메서드 등)가 호출됩니다.
 
+
 - Bean을 등록하기위해서는 xml로 미리 정보를 설정하거나 @Component, @Controller 어노테이션을 이용한 컴포넌트 클래스 또는 Java기반 @Configuration을 이용한다. 이 정보들은 내부적으로 `BeanDefinition` 의 인스턴스로 변환되며 전체 Spring IoC 컨테이너 인스턴스를 로드하는 데 사용됩니다.
 
 
