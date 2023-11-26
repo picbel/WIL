@@ -1,7 +1,5 @@
-11월 3주차
+16일
 ===
-
-[16일]
 
 최근 스프링 공식문서를 번역해보면서 공부중인데 사소한 디테일까지 알게되는것 같아 생각보다 재미있다. \
 오늘 요약할것은 `Spring IoC 컨테이너 및 빈 소개` 글인데 내용을 간단히 요약하면 다음과 같다.
@@ -24,9 +22,9 @@ ApplicationContext는 BeanFactory의 하위 인터페이스이다. 다음 기능
   - Application-layer specific contexts such as the WebApplicationContext for use in web applications. (웹 응용 프로그램에서 사용하는 `WebApplicationContext`와 같은 응용 프로그램 레이어별 특정 컨텍스트.)
 
 ---
-11월 4주차
+
+22일
 ===
-[22일]
 
 의존성 주입 관련 공식문서를 번역하였는데 해당 문서를 읽으며 기억할만한 부분을 간단히 메모하여보겠습니다.
   스프링 Dependency Injection 문서에서 DI를 설명하는것을 요약하면 다음과 같습니다.
@@ -71,5 +69,28 @@ Spring은 일반적으로 안정적으로 동작하며 컨테이너를 로드할
 Bean을 등록하기위해서는 xml로 미리 정보를 설정하거나 @Component, @Controller 어노테이션을 이용한 컴포넌트 클래스 또는 Java기반 @Configuration을 이용한다. 이 정보들은 내부적으로 `BeanDefinition` 의 인스턴스로 변환되며 전체 Spring IoC 컨테이너 인스턴스를 로드하는 데 사용됩니다.
 
 ---
+
+26일
+===
+spring 공식 문서 번역중 depends-on과 Lazy-initialized Beans에 대해 번역하였다.
+먼저 depends-on에 대해 간단히 설명하자면
+
+##### depends-on
+depends-on이 사용되는 빈은 초기화 되기전에 하나 이상의 빈이 명식적으로 초기화 되도록 강제합니다.
+추가로 몰랏던것은 depends-on을 이용하면 종료 순서도 제어 할 수 있다는것에 놀랏다.
+초기화때 종속성과 싱글톤 빈의 경우에는 dependency during destruction을 지정 할수 있다한다.
+
+##### Lazy-initialized Beans
+기본적으로 `ApplicationContext` 는 모든 싱글톤 빈을 미리 생성하고 구성합니다.
+이러한 미리 인스턴스화는 구성 및 환경의 오류를 즉시 발견하기 때문에 바람직합니다.
+하지만 이렇게 미리 만드는것을 원하지 않는다면 Lazy-initialized Beans 을 적용하면 됩니다
+빈 정의를 지연초기화로 표시하여 미리 인스턴스 하지않습니다.
+지연 초기화 된 빈인 경우 Ioc 컨테이너는 처음 요청될 때 생성합니다.
+
+한가지 주의 할 점은 지연 초기화 빈이 지연 초기화가 아닌 싱글톤 빈의 종속성일때 `ApplicationContext` 는 시작시에 지연 초기화된 빈을 생성합니다.
+이는 싱글톤 종속성을 충족하기 위함입니다. 지연 초기화된 빈이 다른 지연 초기화 되지않는 싱글톤 빈에 주입됩니다.
+(생각해보면 당연한게 다른 지연 초기화 싱글톤 빈이 지연초기화빈을 최초 요청한 것이나 다름없기 때문인것 같다.)
+
+
 
 
