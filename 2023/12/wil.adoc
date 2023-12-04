@@ -1,0 +1,9 @@
+4일
+===
+
+하이버네이트 6부터 DISTINCT를 더 이상 사용하지 않아도 된다고 한다. +
+왜냐하면 반환되는 항목의 중복 항목은 이제 하이버네이트에 의해 필터링 되기 때문입니다. +
+`QueryHints#HINT_PASS_DISTINCT_THROUGH` 또한 이제 사용하지 않다도 됩니다 +
+출처: https://docs.jboss.org/hibernate/orm/6.0/migration-guide/migration-guide.html#query-sqm-distinct
+
+---
