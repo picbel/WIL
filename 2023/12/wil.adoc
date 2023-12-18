@@ -54,6 +54,8 @@
 기존의 전송 방식은 disk - os버퍼 → app버퍼 → 소켓버퍼 → nic 버퍼라면 
 zero-copy는 disk → os버퍼 → nic버퍼로 바로 데이터를 복사시킨다 java에선 transferTo() 메서드를 이용하면 된다
 
-출처: https://colevelup.tistory.com/23
+출처: 
+https://www.youtube.com/watch?v=UNUz1-msbOM&ab_channel=ByteByteGo
+https://colevelup.tistory.com/23
 
 ---
