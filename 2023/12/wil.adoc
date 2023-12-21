@@ -69,6 +69,7 @@ https://colevelup.tistory.com/23
 3. constructor block
 
 여기서 상속관계가 있다면
+
 1. child constructor default argument
 2. parent constructor default argument
 3. parent property / init
