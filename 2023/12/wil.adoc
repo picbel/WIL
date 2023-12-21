@@ -59,3 +59,28 @@ https://www.youtube.com/watch?v=UNUz1-msbOM&ab_channel=ByteByteGo +
 https://colevelup.tistory.com/23
 
 ---
+
+20일
+===
+코틀린에서 객체의 초기화시 순서는 다음과 같다
+
+1. constructor default argument
+2. property / init 둘은 선언 순서에 따라 달라질수있다
+3. constructor block
+
+여기서 상속관계가 있다면
+1. child constructor default argument
+2. parent constructor default argument
+3. parent property / init
+4. parent constructor block
+5. child property / init
+6. child constructor block
+순으로 진행된다
+
+간단히 요약하자면 부모의 인스턴스를 전부 초기화후 자식의 인스턴스가 초기화 된다.
+
+---
+
+코루틴 내부에서 수행되는 자식 코루틴에 애러가 생겼을 때 별도의 Exception Handler을 설정해주지 않으면 자식 코루틴은 부모 코루틴까지 취소시키게 된다. 부모 코루틴이 취소되면 당연히 부모의 자식으로 있는 코루틴이 모두 취소된다.
+
+
