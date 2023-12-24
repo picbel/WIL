@@ -101,3 +101,8 @@ https://colevelup.tistory.com/23
 만약 초기화 작업때 비동기 데이터작업이라던가, 트랜잭션을 관리하는 비용이 큰 일을 한다면 SmartInitializingSingleton.afterSingletonsInstantiated()를 구현하거나 ContextRefreshedEvent에 대응하는 ApplicationListener를 구현하거나 @EventListener(ContextRefreshedEvent.class) 애너테이션을 선언하는것을 권장합니다
 이 두 방식은 싱글톤 생성 잠금(singleton creation lock)외부에서 이루어 진다 한다.
 
+[NOTE]
+====
+Spring 컨테이너는 구성된 초기화 콜백이 빈이 모든 의존성을 제공받은 직후에 호출되도록 보장합니다. 따라서 초기화 콜백은 원시 빈 참조에 대해 호출되며, 이는 AOP 인터셉터 등이 아직 빈에 적용되지 않았음을 의미합니다.
+====
+
