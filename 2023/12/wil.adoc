@@ -111,3 +111,7 @@ Spring 컨테이너는 구성된 초기화 콜백이 빈이 모든 의존성을 
 Spring의 web 기반 ApplicationContext 구현은 관련 웹 애플리케이션이 종료될 때 Spring IoC 컨테이너를 우아하게 종료시키기 위한 코드를 이미 포함하고 있습니다.
 web이 아니라면 별도의 설정을 해줘야 한다.
 
+---
+
+ApplicationContextAware를 직접 구현하여 빈정보를 등록하는 방법도있는데 해당 방법은 bean이 Spring에 너무 의존적이게 되어 권장되진 않다.
+
