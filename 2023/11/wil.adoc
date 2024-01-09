@@ -1,3 +1,16 @@
+// Metadata:
+:description: Last Week I Learnt
+:keywords: study, til, lwil
+// Settings:
+:doctype: book
+:toc: left
+:toclevels: 4
+:sectlinks:
+:icons: font
+
+[[section-11월]]
+
+[[section-11월-16일]]
 16일
 ===
 
@@ -23,6 +36,7 @@ ApplicationContext는 BeanFactory의 하위 인터페이스이다. 다음 기능
 
 ---
 
+[[section-11월-22일]]
 22일
 ===
 
@@ -70,6 +84,7 @@ Bean을 등록하기위해서는 xml로 미리 정보를 설정하거나 @Compon
 
 ---
 
+[[section-11월-26일]]
 26일
 ===
 spring 공식 문서 번역중 depends-on과 Lazy-initialized Beans에 대해 번역하였다.
