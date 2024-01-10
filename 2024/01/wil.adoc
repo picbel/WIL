@@ -1,1 +1,9 @@
-[7일]
+// Metadata:
+:description: Last Week I Learnt
+:keywords: study, til, lwil
+// Settings:
+:doctype: book
+:toc: left
+:toclevels: 4
+:sectlinks:
+:icons: font
