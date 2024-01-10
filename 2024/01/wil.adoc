@@ -1,5 +1,5 @@
 // Metadata:
-:description: Last Week I Learnt
+:description: Week I Learnt
 :keywords: study, til, lwil
 // Settings:
 :doctype: book
@@ -8,5 +8,5 @@
 :sectlinks:
 :icons: font
 
-
-
+[[section-202401]]
+== 2024년 01월
