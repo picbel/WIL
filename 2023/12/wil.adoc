@@ -113,7 +113,7 @@ https://colevelup.tistory.com/23
 23일
 ===
 #### @PostConstruct와 DeadLock
-스프링 공식문서에서 @PostConstruct를 잘못 사용하면 DeadLock(데드락) 위험이 있다고 경고한다.
+스프링 공식문서에서 @PostConstruct를 잘못 사용하면 DeadLock(데드락) 위험이 있다고 경고한다. +
 출처: https://docs.spring.io/spring-framework/reference/core/beans/factory-nature.html
 
 @PostConstruct와 일반적인초기화 메소드는 컨테이너의 싱글톤 생성 잠금(singleton creation lock)내에서 실행된다 한다.
