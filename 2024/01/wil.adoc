@@ -123,6 +123,7 @@ class MyFeatureConfiguration {
 ```
 
 ---
-
+[[section-202401-23일]]
+23일
 
 
