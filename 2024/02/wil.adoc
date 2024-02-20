@@ -32,6 +32,15 @@ https://www.youtube.com/watch?v=szl3eWA0VRw 요약
 
 ---
 
-[[section-202402-8일]]
+[[section-202402-12일]]
 12일
 ===
+
+
+---
+
+[[section-202402-20일]]
+20일
+===
+서블릿에서 error 처리 방식과 스프링의 ErrorController, @RequestMapping("/error") 처리에 대해 알아보고 기술하기
+
