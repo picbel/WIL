@@ -35,7 +35,7 @@ https://www.youtube.com/watch?v=szl3eWA0VRw 요약
 [[section-202402-12일]]
 12일
 ===
-
+캐시 스탬피드(Cache Stampede)
 
 ---
 
