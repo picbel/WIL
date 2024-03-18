@@ -18,10 +18,13 @@ grpc란?
 
 https://youtu.be/gnchfOojMk4?si=m6M2WXOkwCa0U3Jp 
 
-
 ---
+
 [[section-202403-16일]]
 16일
 ===
+why is redis so FAST
+https://www.youtube.com/shorts/x8lcdDbKZto
 
+https://www.youtube.com/watch?v=5TRFpFBccQM
 
