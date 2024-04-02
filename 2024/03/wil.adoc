@@ -7,6 +7,7 @@
 :toclevels: 4
 :sectlinks:
 :icons: font
+:hardbreaks:
 
 [[section-202403]]
 == 2024년 03월
