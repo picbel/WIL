@@ -121,3 +121,11 @@ TransactionSynchronizationManager는 스프링의 org.springframework.transactio
 26일
 ===
 #### 물리주소, 논리주소 / 절대주소, 상대주소
+
+
+---
+
+[[section-202404-29일]]
+29일
+===
+
