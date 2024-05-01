@@ -1,0 +1,18 @@
+// Metadata:
+:description: Week I Learnt
+:keywords: study, til, lwil
+// Settings:
+:doctype: book
+:toc: left
+:toclevels: 4
+:sectlinks:
+:icons: font
+:hardbreaks:
+
+
+[[section-202405]]
+== 2024년 05월
+
+//[[section-202405-1일]]
+//1일
+//===
