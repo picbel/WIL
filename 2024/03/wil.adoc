@@ -15,7 +15,7 @@
 [[section-202403-5일]]
 5일
 ===
-grpc란?
+### grpc란?
 
 https://youtu.be/gnchfOojMk4?si=m6M2WXOkwCa0U3Jp 
 
@@ -24,7 +24,7 @@ https://youtu.be/gnchfOojMk4?si=m6M2WXOkwCa0U3Jp
 [[section-202403-16일]]
 16일
 ===
-why is redis so FAST
+### why is redis so FAST
 https://www.youtube.com/shorts/x8lcdDbKZto
 
 https://www.youtube.com/watch?v=5TRFpFBccQM
@@ -34,7 +34,7 @@ https://www.youtube.com/watch?v=5TRFpFBccQM
 [[section-202403-19일]]
 19일
 ===
-#### 지역 변수 캡처
+### 지역 변수 캡처
 
 "지역 변수 캡처"는 프로그래밍에서 클로저(Closure) 또는 람다(lambda) 같은 익명 함수가 자신이 선언된 범위 밖에 있는 지역 변수를 "캡처"해서 사용할 수 있게 하는 기능을 말해요. 이렇게 캡처된 변수는 익명 함수 내부에서 읽거나 쓸 수 있으며, 이 기능은 함수형 프로그래밍에서 중요한 역할을 해요.
 
