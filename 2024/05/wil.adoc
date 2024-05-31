@@ -280,5 +280,12 @@ public final class MainKt {
 [[section-202405-29일]]
 29일
 ===
-### 클러스터링된 DB 구조에서 외부 Table을 이용한 join이 가능하다
-작성중
+### 클러스터링된 DB 구조에서 외부 Table을 이용한 join이 가능하다 
+
+PostgreSQL: `postgres_fdw` 플러그인을 설치하면 가능하다
+외부서버를 정의후 사용자를 맵핑하고 `FOREIGN TABLE` 이라는 키워드로 사용이 가능하다
+
+MySQL/MariaDB: Federated 또는 FederatedX Storage Engine을 사용하여 다른 서버의 테이블을 로컬 테이블처럼 접근하고 조인할 수 있습니다.
+
+당연한 애기이지만 외부 서버의 데이터를 사용하여 join을 하는것이므로 네트워크를 탄다. 따라오는 문제점으로는 성능이 크게 제한이 될 수 있으며 네트워크 지연문제와 쿼리 최적화가 제한 될 수 있다. 또한 데이터 일관성을 보장하기 힘들다
+
