@@ -236,6 +236,29 @@ public final class MainKt {
 ```
 클래스로 맵핑되어 JVM 힙에 할당되기 때문에 메서드의 생명주기가 끝나도 영향받지 않습니다
 
+번외
+위에 설명했든 코틀린의 경우에는 함수에서 지역변수캡처를 하여도 값이 변경이 된다.
+```
+@Test
+fun kotlinChangeClosure() {
+   var a = 1
+   val async = CoroutineScope(Dispatchers.Default).async(start = CoroutineStart.LAZY) {
+      println("코루틴")
+      println(exampleFunction(lambda = { a }))
+   }
+   a = 10
+   async.start() // print 10
+}
+
+fun exampleFunction(
+   lambda: () -> Int
+): Int {
+   return lambda()
+}
+```
+java의 Thread를 이용하여 비동기 처리를 진행해도 print에서 10이 출력됩니다
+
+
 ---
 [[section-202405-26일]]
 26일
