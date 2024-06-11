@@ -238,7 +238,7 @@ public final class MainKt {
 
 번외
 위에 설명했든 코틀린의 경우에는 함수에서 지역변수캡처를 하여도 값이 변경이 된다.
-```
+```kotlin
 @Test
 fun kotlinChangeClosure() {
    var a = 1
