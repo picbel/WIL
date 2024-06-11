@@ -256,6 +256,7 @@ fun exampleFunction(
    return lambda()
 }
 ```
+실행하여 보면 코루틴 내부의 print가 1이 아닌 10이 출력됩니다
 java의 Thread를 이용하여 비동기 처리를 진행해도 print에서 10이 출력됩니다
 
 
