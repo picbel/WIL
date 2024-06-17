@@ -46,6 +46,11 @@
 [[section-202406-17일]]
 17일
 ===
+### Java의 LinkedHashMap과 LRU
 
+LRU캐쉬를 Java에서 구현할때 LinkedHashMap를 이용해서 많이 구현한다.
+이때 주의할점이 accessOrder 값을 꼭 true로 지정하여야한다
+map의 반복순서를 정하는 값인데
+true일 경우 액세스 순서, false일 경우 삽입 순서에 따라 map의 반복순서를 관리합니다.
 
 
