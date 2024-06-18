@@ -39,7 +39,7 @@
 [[section-202406-12일]]
 12일
 ===
-
+### JtaTransactionManager 란?
 
 ---
 
