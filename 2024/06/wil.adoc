@@ -53,4 +53,11 @@ LRU캐쉬를 Java에서 구현할때 LinkedHashMap를 이용해서 많이 구현
 map의 반복순서를 정하는 값인데
 true일 경우 액세스 순서, false일 경우 삽입 순서에 따라 map의 반복순서를 관리합니다.
 
+---
+
+[[section-202406-18일]]
+18일
+===
+### PreparedStatement 동작 방식
+
 
