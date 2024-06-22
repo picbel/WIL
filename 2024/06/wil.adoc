@@ -39,6 +39,9 @@
 [[section-202406-12일]]
 12일
 ===
+### ChainedTransactionManager 란?
+
+---
 ### JtaTransactionManager 란?
 
 xa 트랜잭션
