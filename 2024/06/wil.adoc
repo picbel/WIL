@@ -39,16 +39,21 @@
 [[section-202406-12일]]
 12일
 ===
-### ChainedTransactionManager 란?
-
----
 ### JtaTransactionManager 란?
 
 xa 트랜잭션
 주의점
 Xa 트랜잭션 미지원으로 인해 레디스 트랜잭션은 jta 트랜잭션을 태울수없다
 
+#### ChainedTransactionManager 란?
 
+https://github.com/spring-projects/spring-data-commons/issues/2232
+
+ChainedTransactionManager is the primary class in org.springframework.data.transaction that is used for multi-transactionmanager arrangements. It is useful to coordinate transactions across multiple resources especially when one transaction manager is a Spring one and the other is a foreign one.
+
+Over time, we found that we're basically emulating distributed transactions on a best-effort basis with known gaps. These gaps lead to inconsistencies or unexpected behavior during rollbacks. Part of the problem is that resource/synchronization storage is a singleton ThreadLocal. Using two transaction managers based on AbstractPlatformTransactionManager causes the first transaction manager to handle all synchronizations regardless of their resource origin (primary and secondary transactional resources). If the second transaction manager commit fails, then already all synchronizations are processed and there's no way to recover.
+
+Therefore, we're going to deprecate ChainedTransactionManager and the entire org.springframework.data.transaction that hosts support classes for multi-transactions
 
 ---
 
