@@ -47,6 +47,7 @@ Xa 트랜잭션 미지원으로 인해 레디스 트랜잭션은 jta 트랜잭�
 
 #### 번외 : ChainedTransactionManager 란?
 
+ChainedTransactionManager가 deprecate 된 이유 : 
 https://github.com/spring-projects/spring-data-commons/issues/2232
 
 ChainedTransactionManager is the primary class in org.springframework.data.transaction that is used for multi-transactionmanager arrangements. It is useful to coordinate transactions across multiple resources especially when one transaction manager is a Spring one and the other is a foreign one.
