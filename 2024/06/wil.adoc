@@ -41,20 +41,22 @@
 ===
 ### JtaTransactionManager 란?
 
-xa 트랜잭션
-주의점
-Xa 트랜잭션 미지원으로 인해 레디스 트랜잭션은 jta 트랜잭션을 태울수없다
+JtaTransactionManager는 Java Transaction API(JTA)를 사용하여 트랜잭션을 관리하는 스프링 프레임워크의 클래스이다. 
+주로 분산 트랜잭션 관리에 사용되며, 여러 데이터 소스와의 작업을 하나의 트랜잭션으로 묶어 관리할 수 있도록 합니다.
+주의점이 하나 있는데 Jta의 트랜잭션 관리는 XA 트랜잭션이 지원되어야 원할히 관리된다.
+Redis같은 경우 XA 트랜잭션을 지원하지 않아 JTA에서 트랜잭션을 직접 관리하지 못한다.
+
+#### XA Transaction
+XA 트랜잭션은 분산 트랜잭션 표준 중 하나로, 여러 자원 관리자가 참여하는 트랜잭션을 조율할 때 사용된다.
+XA는 두 가지 주요 단계를 통해 분산 트랜잭션을 관리합니다: 준비(Prepare)와 커밋(Commit)/롤백(Rollback).
 
 #### 번외 : ChainedTransactionManager 란?
 
-ChainedTransactionManager가 deprecate 된 이유 : 
-https://github.com/spring-projects/spring-data-commons/issues/2232
+주의점이 하나 있는데 모든 트랜잭션을 다 묶을수 있진 않다. 
 
-ChainedTransactionManager is the primary class in org.springframework.data.transaction that is used for multi-transactionmanager arrangements. It is useful to coordinate transactions across multiple resources especially when one transaction manager is a Spring one and the other is a foreign one.
+ChainedTransactionManager가 deprecate 된 이유 : ChainedTransactionManager는 여러 트랜잭션 관리자를 조정하지만, ThreadLocal로 인해 롤백 시 불일치와 예기치 못한 동작을 초래할 수 있습니다. 특히 두 번째 트랜잭션 관리자 커밋 실패 시 복구가 어렵습니다. 이러한 이유로 ChainedTransactionManager와 관련 패키지를 사용 중단할 예정입니다.
 
-Over time, we found that we're basically emulating distributed transactions on a best-effort basis with known gaps. These gaps lead to inconsistencies or unexpected behavior during rollbacks. Part of the problem is that resource/synchronization storage is a singleton ThreadLocal. Using two transaction managers based on AbstractPlatformTransactionManager causes the first transaction manager to handle all synchronizations regardless of their resource origin (primary and secondary transactional resources). If the second transaction manager commit fails, then already all synchronizations are processed and there's no way to recover.
-
-Therefore, we're going to deprecate ChainedTransactionManager and the entire org.springframework.data.transaction that hosts support classes for multi-transactions
+원문 링크 : https://github.com/spring-projects/spring-data-commons/issues/2232
 
 ---
 
@@ -77,6 +79,8 @@ true일 경우 액세스 순서, false일 경우 삽입 순서에 따라 map의 
 
 PreparedStatement의 set 메서드를 사용하여 파라미터를 바인딩할 때, 실제로는 SQL 문 자체에서 ? 플레이스홀더를 값으로 즉시 변경하는 것이 아니라, 
 그 값을 내부적으로 유지하고 있다가 SQL 문을 실행할 때 데이터베이스와 통신하기 위해 바인딩합니다.
+
+추가로 sql 인젝션을 막기위해 java에서는 https://owasp.org/www-community/attacks/SQL_Injection 의 내용을 반영해서 업데이트 된다.
 
 ---
 
