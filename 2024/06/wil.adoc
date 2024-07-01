@@ -52,8 +52,6 @@ XA는 두 가지 주요 단계를 통해 분산 트랜잭션을 관리합니다:
 
 #### 번외 : ChainedTransactionManager 란?
 
-주의점이 하나 있는데 모든 트랜잭션을 다 묶을수 있진 않다. 
-
 ChainedTransactionManager가 deprecate 된 이유 : ChainedTransactionManager는 여러 트랜잭션 관리자를 조정하지만, ThreadLocal로 인해 롤백 시 불일치와 예기치 못한 동작을 초래할 수 있습니다. 특히 두 번째 트랜잭션 관리자 커밋 실패 시 복구가 어렵습니다. 이러한 이유로 ChainedTransactionManager와 관련 패키지를 사용 중단할 예정입니다.
 
 원문 링크 : https://github.com/spring-projects/spring-data-commons/issues/2232
