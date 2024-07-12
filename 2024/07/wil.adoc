@@ -88,3 +88,12 @@ TreeMap의 주요 차별점은 자료구조 레벨에서 범위 검색을 지원
 11일
 ===
 avl 트리, 레드블랙 트리, 
+
+---
+
+[[section-202407-12일]]
+12일
+===
+### Binary Search vs Probabilistic Search
+https://www.dolthub.com/blog/2024-05-13-binary-vs-prolly/
+위 블로그 포스트 내용 요약하기
