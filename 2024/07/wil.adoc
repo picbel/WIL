@@ -137,5 +137,12 @@ AVL 트리와 Red-Black 트리는 둘 다 자가 균형 이진 검색 트리(sel
 https://www.dolthub.com/blog/2024-05-13-binary-vs-prolly/
 위 블로그 포스트 내용 요약하기
 
+---
+
+[[section-202407-14일]]
+14일
+===
+정렬별 성능 빅오표기로 정리
+
 
 
