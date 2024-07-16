@@ -144,5 +144,11 @@ https://www.dolthub.com/blog/2024-05-13-binary-vs-prolly/
 ===
 정렬별 성능 빅오표기로 정리
 
+---
+[[section-202407-16일]]
+16일
+===
+"Diamond problem in polymorphism"
+https://en.wikipedia.org/wiki/Multiple_inheritance (편집됨) 
 
 
