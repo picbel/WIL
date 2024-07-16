@@ -222,16 +222,70 @@ AVL 트리와 Red-Black 트리는 둘 다 자가 균형 이진 검색 트리(sel
 ** 크기가 큰 데이터 집합에 대해 효율적.
 
 표로 간단히 요약하면 다음과 같다.
-여러 정렬 알고리즘의 시간 복잡도를 빅오 표기로 정리하면 다음과 같습니다:
 
-| 정렬 알고리즘   | 최선 시간 복잡도 | 평균 시간 복잡도 | 최악 시간 복잡도 | 공간 복잡도 |
-|-----------------|------------------|------------------|------------------|------------|
-| 버블 정렬 (Bubble Sort) | O(n)              | O(n^2)            | O(n^2)            | O(1)       |
-| 선택 정렬 (Selection Sort) | O(n^2)            | O(n^2)            | O(n^2)            | O(1)       |
-| 삽입 정렬 (Insertion Sort) | O(n)              | O(n^2)            | O(n^2)            | O(1)       |
-| 병합 정렬 (Merge Sort) | O(n log n)         | O(n log n)         | O(n log n)         | O(n)       |
-| 퀵 정렬 (Quick Sort)   | O(n log n)         | O(n log n)         | O(n^2)            | O(log n)   |
-| 힙 정렬 (Heap Sort)    | O(n log n)         | O(n log n)         | O(n log n)         | O(1)       |
+|===
+| 정렬 알고리즘   | 최선 시간 복잡도 | 평균 시간 복잡도 | 최악 시간 복잡도 | 공간 복잡도
+
+| 버블 정렬 (Bubble Sort)
+| O(n)
+| O(n^2)
+| O(n^2)
+| O(1)
+
+| 선택 정렬 (Selection Sort)
+| O(n^2)
+| O(n^2)
+| O(n^2)
+| O(1)
+
+| 삽입 정렬 (Insertion Sort)
+| O(n)
+| O(n^2)
+| O(n^2)
+| O(1)
+
+| 병합 정렬 (Merge Sort)
+| O(n log n)
+| O(n log n)
+| O(n log n)
+| O(n)
+
+| 퀵 정렬 (Quick Sort)
+| O(n log n)
+| O(n log n)
+| O(n^2)
+| O(log n)
+
+| 힙 정렬 (Heap Sort)
+| O(n log n)
+| O(n log n)
+| O(n log n)
+| O(1)
+
+| 기수 정렬 (Radix Sort)
+| O(nk)
+| O(nk)
+| O(nk)
+| O(n + k)
+
+| 쉘 정렬 (Shell Sort)
+| O(n log n)
+| O(n^(3/2))
+| O(n^2)
+| O(1)
+
+| 계수 정렬 (Counting Sort)
+| O(n + k)
+| O(n + k)
+| O(n + k)
+| O(k)
+
+| 버킷 정렬 (Bucket Sort)
+| O(n + k)
+| O(n + k)
+| O(n^2)
+| O(n + k)
+|===
 
 ---
 
