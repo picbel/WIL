@@ -262,29 +262,6 @@ AVL 트리와 Red-Black 트리는 둘 다 자가 균형 이진 검색 트리(sel
 | O(n log n)
 | O(1)
 
-| 기수 정렬 (Radix Sort)
-| O(nk)
-| O(nk)
-| O(nk)
-| O(n + k)
-
-| 쉘 정렬 (Shell Sort)
-| O(n log n)
-| O(n^(3/2))
-| O(n^2)
-| O(1)
-
-| 계수 정렬 (Counting Sort)
-| O(n + k)
-| O(n + k)
-| O(n + k)
-| O(k)
-
-| 버킷 정렬 (Bucket Sort)
-| O(n + k)
-| O(n + k)
-| O(n^2)
-| O(n + k)
 |===
 
 ---
