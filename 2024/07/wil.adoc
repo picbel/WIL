@@ -295,11 +295,11 @@ Java의 경우 다중상속을 언어레벨에서 막고있다.
 그러나 Java8에서 등장한 인터페이스 default구현때문에 해당 문제가 발생 할 수 있는데
 이럴 경우 명시적으로 어떤 메서드를 사용할지 super라는 키워드를 이용하여 지정하여야한다
 ```java
- public void display() {
-        // 명시적으로 어떤 인터페이스의 메서드를 사용할지 지정
-        B.super.display();
-        C.super.display();
-    }
+public void display() {
+   // 명시적으로 어떤 인터페이스의 메서드를 사용할지 지정
+   B.super.display();
+   C.super.display();
+}
 ```
 
 
