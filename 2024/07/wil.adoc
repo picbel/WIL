@@ -304,9 +304,8 @@ public void display() {
 
 ---
 
-[[section-202407-18일]]
-18일
+[[section-202407-21일]]
+21일
 ===
-
-???
+### kotlin 컬렉션 binary search 함수 주의사항
 
