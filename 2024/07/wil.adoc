@@ -310,7 +310,7 @@ public void display() {
 ### kotlin List 확장함수 binarySearch 주의사항
 
 Kotlin에는 
-```
+```kotlin
 public fun <T : Comparable<T>> List<T?>.binarySearch(element: T?, fromIndex: Int = 0, toIndex: Int = size): Int
 ```
 binarySearch를 위한 함수가 구현되어있다.
