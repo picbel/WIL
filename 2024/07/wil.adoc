@@ -321,12 +321,8 @@ binarySearch를 위한 함수가 구현되어있다.
 함수 주석에도 적혀있지만 매번 주석보는것보단 기억하는게 편하니 메모함
 
 ---
-[[section-202407-24일]]
-24일
-===
-
----
 [[section-202407-26일]]
 26일
 ===
-
+Sql Lite는 파일시스템보다 35% 가량 빠르다
+https://news.hada.io/topic?id=16044&utm_source=slack&utm_medium=bot&utm_campaign=T0772LVJ0NT
