@@ -326,3 +326,5 @@ binarySearch를 위한 함수가 구현되어있다.
 ===
 Sql Lite는 파일시스템보다 35% 가량 빠르다
 https://news.hada.io/topic?id=16044&utm_source=slack&utm_medium=bot&utm_campaign=T0772LVJ0NT
+
+https://sqlite.org/fasterthanfs.html
