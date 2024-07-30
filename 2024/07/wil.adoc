@@ -328,3 +328,9 @@ Sql Lite는 파일시스템보다 35% 가량 빠르다
 https://news.hada.io/topic?id=16044&utm_source=slack&utm_medium=bot&utm_campaign=T0772LVJ0NT
 
 https://sqlite.org/fasterthanfs.html
+
+
+---
+[[section-202407-30일]]
+30일
+===
