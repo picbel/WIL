@@ -334,3 +334,7 @@ https://sqlite.org/fasterthanfs.html
 [[section-202407-30일]]
 30일
 ===
+lock 성능 비교 영상 
+https://youtu.be/nTjW9A-TTtw?si=n7VINbqy_WJPt-rj
+
+
