@@ -1,0 +1,23 @@
+// Metadata:
+:description: Week I Learnt
+:keywords: study, til, lwil
+// Settings:
+:doctype: book
+:toc: left
+:toclevels: 4
+:sectlinks:
+:icons: font
+:hardbreaks:
+
+
+[[section-202408]]
+== 2024년 08월
+
+[[section-202408-1일]]
+1일
+===
+### SELECT ... FOR UPDATE 와 SKIP LOCKED
+
+정의
+
+활용법
