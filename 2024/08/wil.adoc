@@ -18,6 +18,8 @@
 ===
 ### SELECT ... FOR UPDATE 와 SKIP LOCKED
 
-정의
+#### SELECT ... FOR UPDATE
 
-활용법
+#### SKIP LOCKED
+
+#### SELECT ... FOR UPDATE SKIP LOCKED 활용법
