@@ -24,3 +24,7 @@
 
 #### SELECT ... FOR UPDATE SKIP LOCKED 활용법
 작업 큐 만들기
+
+[[section-202408-5일]]
+5일
+===
