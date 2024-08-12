@@ -330,6 +330,7 @@ https://news.hada.io/topic?id=16044&utm_source=slack&utm_medium=bot&utm_campaign
 https://sqlite.org/fasterthanfs.html
 
 ㅇㅇ?
+내일 예정
 
 
 
@@ -345,6 +346,7 @@ https://youtu.be/nTjW9A-TTtw?si=n7VINbqy_WJPt-rj
 3개 lock
 
 리엔트앤트락 싱크로나이즈 등등등
+오늘 예정
 
 
 
