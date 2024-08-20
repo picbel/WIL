@@ -84,7 +84,7 @@ WHERE task_id = <작업 ID>;
 [[section-202408-18일]]
 18일
 ===
-
+코틀린 코루틴 flow emit
 
 
 
