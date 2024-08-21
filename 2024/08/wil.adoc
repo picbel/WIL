@@ -86,6 +86,10 @@ WHERE task_id = <작업 ID>;
 ===
 코틀린 코루틴 flow emit
 
+비동기 flow
+
+emit은 결과를 방출 
+
 
 
 
