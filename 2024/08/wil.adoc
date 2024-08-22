@@ -84,11 +84,14 @@ WHERE task_id = <작업 ID>;
 [[section-202408-18일]]
 18일
 ===
+### Flow, emit (Kotlin Coroutine)
 코틀린 코루틴 flow emit
 
 비동기 flow
 
 emit은 결과를 방출 
+
+
 
 ---
 
