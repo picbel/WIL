@@ -85,13 +85,36 @@ WHERE task_id = <작업 ID>;
 18일
 ===
 ### Flow, emit (Kotlin Coroutine)
-코틀린 코루틴 flow emit
 
-비동기 flow
+#### Flow
+`Flow` 는 연속적인 데이터를 비동기적으로 제공하는데 중점을 둔다. 
+예를 들어, 시간이 지남에 따라 데이터를 하나씩 생성하거나, API 호출 결과를 순차적으로 처리할 때 유용하다
 
-emit은 결과를 방출 
+#### emit
+`emit` 은 `Flow` 내부에서 데이터를 발행하는 데 사용한다.
+좀 더 이해하기 쉽게 설명하면 `Flow` 내부의 흐름을 `emit` 함수를 통해 결과를 방출한다.
+이렇게 발행(방출)된 결과를 `collect` 를 이용해 데이터를 수집한다
 
+```kotlin
+fun simpleFlow(): Flow<Int> = flow {
+    for (i in 1..5) {
+        emit(i)  // 데이터를 하나씩 발행(emit)합니다.
+    }
+}
 
+// 실행결과 1,2,3,4,5
+suspend fun collectFlow() {
+    simpleFlow().collect { value ->
+        println(value)
+    }
+}
+
+```
+
+#### Flow 특징
+1. `Flow` 는 `collect` 가 호출되기 전까지 실행되지 않으며, `collect` 를 호출할 때마다 새로 시작된다.
+2. 비동기적으로 데이터를 발행할 수 있다.
+3. map, filter, reduce와 같은 다양한 연산자를 지원함
 
 ---
 
