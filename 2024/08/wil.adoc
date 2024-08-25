@@ -139,7 +139,7 @@ suspend fun collectFlow() {
 [[section-202408-22일]]
 22일
 ===
-
+### 분기 예측(Branch Prediction)이란?
 
 ---
 
