@@ -140,7 +140,7 @@ suspend fun collectFlow() {
 22일
 ===
 ### 분기 예측(Branch Prediction)이란?
-
+https://chatgpt.com/c/98bc6848-e33d-4742-9b20-03e66484304e
 ---
 
 [[section-202408-24일]]
