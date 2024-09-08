@@ -18,4 +18,8 @@
 ===
 ### epoll(linux) 이란?
 
+epoll이란 linux에서
+
+인터럽트 하고 상관 X 적기
+
 
