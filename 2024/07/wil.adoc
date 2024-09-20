@@ -324,7 +324,7 @@ binarySearch를 위한 함수가 구현되어있다.
 [[section-202407-30일]]
 30일
 ===
-# ReentrantLock, ReadWriteLock, StampedLock 성능 비교
+### ReentrantLock, ReadWriteLock, StampedLock 성능 비교
 
 - **ReentrantLock**: 하나의 스레드가 중복해서 락을 획득할 수 있는 락, 추가로 조건 객체(Condition)도 지원하여 더 세밀한 제어가 가능. 동시 읽기가 불가능하다.
 
