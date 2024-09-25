@@ -58,7 +58,7 @@ epoll은 FD(File Descriptor)에서 발생하는 i/o이벤트를 모니터링하�
 [[section-202409-23일]]
 23일
 ===
-### 
+### 파이프라인 해저드(Pipeline Hazard)
 
 
 
