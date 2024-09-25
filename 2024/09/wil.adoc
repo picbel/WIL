@@ -59,6 +59,7 @@ epoll은 FD(File Descriptor)에서 발생하는 i/o이벤트를 모니터링하�
 23일
 ===
 ### 파이프라인 해저드(Pipeline Hazard)
+https://chatgpt.com/c/66f3d3a9-30ac-800c-9e35-bd35cb043af8
 
 
 
