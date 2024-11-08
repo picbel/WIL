@@ -13,7 +13,13 @@
 [[section-202411]]
 == 2024년 11월
 
-[[section-202411-4일]]
-4일
+[[section-202411-8일]]
+8일
 ===
-### 
+### Spring Data Redis의 Transaction 설정
+RedisTemplate의 setEnableTransactionSupport(true) 요약
+Redis의 MULTI/EXEC 트랜잭션
+Redis의 MULTI/EXEC 트랜잭션의 단점과 문제 한계점
+
+
+https://chatgpt.com/c/672d80a5-09f4-800c-8a2e-e7de64cef44b
