@@ -24,4 +24,12 @@ Redis의 MULTI/EXEC 트랜잭션의 단점과 문제 한계점
 
 https://chatgpt.com/c/672d80a5-09f4-800c-8a2e-e7de64cef44b
 
+---
+
+[[section-202411-12일]]
+12일
+===
+### TCP HOL 문제
+tcp hol문제 정의
+패킷로스가 발생하면 hol문제가 생긴다
 
