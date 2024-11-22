@@ -45,6 +45,7 @@ tcp hol문제 정의
 ===
 ### 히카리cp 커넥션 시간과 mysql커넥션풀의 시간
 히카리cp mysql 카넥션 유지시간 조사
+https://chatgpt.com/c/67401832-5174-800c-9602-82c7a0e6429e
 
 ---
 
