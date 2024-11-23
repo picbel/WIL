@@ -18,6 +18,8 @@
 ===
 ### Spring Data Redis의 Transaction 설정
 
+
+
 RedisTemplate의 setEnableTransactionSupport(true) 요약
 Redis의 MULTI/EXEC 트랜잭션
 Redis의 MULTI/EXEC 트랜잭션의 단점과 문제 한계점
@@ -38,6 +40,7 @@ tcp hol문제 정의
 패킷로스가 없다면 hol 문제가 없다
 
 
+
 ---
 
 [[section-202411-19일]]
@@ -52,5 +55,7 @@ https://chatgpt.com/c/67401832-5174-800c-9602-82c7a0e6429e
 [[section-202411-22일]]
 22일
 ===
+
+
 
 
