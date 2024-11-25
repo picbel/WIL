@@ -18,13 +18,35 @@
 ===
 ### Spring Data Redis의 Transaction 설정
 
+#### RedisTemplate의 setEnableTransactionSupport(true) 란?
+해당 함수는 RedisTemplate의 enableTransactionSupport 필드를 set하는 함수이고
+enableTransactionSupport는 Redis 연산에 트랜잭션 지원을 활성화 하는지를 결정하는 필드이다
+해당 설정을 키면 JPA같은 JDBC 트랜잭션에서 Redis 연산도 동일한 트랜잭션 컨텍스트 내에서 커밋 또는 롤백되도록 할 수 있다.
+즉, JPA, JDBC 트랜잭션과 함께 Redis 작업을 수행할 때, 같은 트랜잭션 경계를 따라 처리됩니다. 예를 들어, JPA 또는 JDBC 작업이 실패하여 롤백될 때 Redis 연산 결과는 조회되지 않습니다.
 
+#### 주의 사항
+위의 내용을 읽으면 의문이 들수있다.
+Redis의 트랜잭션은 흔히 아는 트랜잭션의 특성인 ACID를 보장하지않는다.
+위 방법으로는 원자성(Atomic)만 보장 된다.
+Redis는 단일 트랜잭션 내에서 명령들을 일괄 처리(MULTI/EXEC)할 수 있을 뿐, RDBMS의 트랜잭션처럼 자동으로 롤백하는 기능은 제한적이다.
+MULTI/EXEC 방식은 단순히 MULTI 명령어가 내린 시점에서 Redis의 연산 명령어를 전부 큐에 담은다음 EXEC 명령어가 실행되는 시점에 큐에 담은 명령어를 한번에 실행시키는 방식이다.
+명령들이 단계별로 실행되는 도중 그 결과를 바로 확인하거나 사용할 수 없다.
+위 특성때문에 트랜잭션내부에서 Redis의 조회 연산을 하게되면 RedisTemplate은 null을 리턴합니다.
+따라서 해당 기능을 키고 트랜잭션내에서 Redis의 연산을 하게된다면 *_트랜잭션 내부에서 Redis의 연산 결과를 활용하여 2차 가공하지 않아야 한다_* (조회라면 어차피 null이 온다.)
 
-RedisTemplate의 setEnableTransactionSupport(true) 요약
-Redis의 MULTI/EXEC 트랜잭션
-Redis의 MULTI/EXEC 트랜잭션의 단점과 문제 한계점
-스프링 데이터 레디스 / 레디스 템플릿의 get함수 참조해서 설명
-
+아래는 Spring Data Redis의 org.springframework.data.redis.core.ValueOperations.class 의 get 함수 내용이다
+```java
+	/**
+	 * Get the value of {@code key}.
+	 *
+	 * @param key must not be {@literal null}.
+	 * @return {@literal null} when key does not exist or used in pipeline / transaction.
+	 * @see <a href="https://redis.io/commands/get">Redis Documentation: GET</a>
+	 */
+	@Nullable
+	V get(Object key);
+```
+트랜잭션이나 파이프라인 내부에서 사용되면 null을 리턴한다는것이 주석에 안내되어있다.
 
 ---
 
