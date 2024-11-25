@@ -26,8 +26,6 @@ Redis의 MULTI/EXEC 트랜잭션의 단점과 문제 한계점
 스프링 데이터 레디스 / 레디스 템플릿의 get함수 참조해서 설명
 
 
-https://chatgpt.com/c/672d80a5-09f4-800c-8a2e-e7de64cef44b
-
 ---
 
 [[section-202411-12일]]
@@ -48,7 +46,7 @@ tcp hol문제 정의
 ===
 ### 히카리cp 커넥션 시간과 mysql커넥션풀의 시간
 히카리cp mysql 카넥션 유지시간 조사
-https://chatgpt.com/c/67401832-5174-800c-9602-82c7a0e6429e
+
 
 ---
 
