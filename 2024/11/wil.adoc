@@ -75,9 +75,7 @@ https://seongonion.tistory.com/157?utm_source=chatgpt.com
 [[section-202411-22일]]
 22일
 ===
-### 대표적인 캐쉬 알고리즘
-매번 안까먹기위해 작성
-LRU, LFU
+
 
 
 
