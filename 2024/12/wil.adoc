@@ -13,4 +13,39 @@
 [[section-202412]]
 == 2024년 12월
 
+[[section-202412-2일]]
+2일
+===
+### TransactionManager 와 Kotlin Coroutine
 
+org.springframework:spring-tx 의 org.springframework.transaction.annotation.Transactinal 의 주석내용
+```
+* <h3>Transaction Management</h3>
+*
+* <p>This annotation commonly works with thread-bound transactions managed by a
+* {@link org.springframework.transaction.PlatformTransactionManager}, exposing a
+* transaction to all data access operations within the current execution thread.
+* <b>Note: This does NOT propagate to newly started threads within the method.</b>
+*
+* <p>Alternatively, this annotation may demarcate a reactive transaction managed
+* by a {@link org.springframework.transaction.ReactiveTransactionManager} which
+* uses the Reactor context instead of thread-local variables. As a consequence,
+* all participating data access operations need to execute within the same
+* Reactor context in the same reactive pipeline.
+```
+위 주석내용을 간단히 요약하면 다음과 같다.
+
+#### PlatformTransactionManager
+Thread Local
+
+
+#### ReactiveTransactionManager
+Reactor Context
+
+
+
+Spring Data에서 reactor와 코틀린 코루틴을 활용하여 CoroutineCrudRepository를 지원하기도 한다
+
+https://docs.spring.io/spring-data/relational/reference/kotlin/coroutines.html
+
+---
