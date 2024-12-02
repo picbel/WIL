@@ -45,6 +45,8 @@ Reactor Context
 
 
 Spring Data에서 reactor와 코틀린 코루틴을 활용하여 CoroutineCrudRepository를 지원하기도 한다
+data에 crud행위를 추상화한 인터페이스인 CrudRepository처럼 코루틴으로 data에 crud행위를 추상화한 인터페이스이다.
+
 
 https://docs.spring.io/spring-data/relational/reference/kotlin/coroutines.html
 
