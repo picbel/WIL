@@ -55,3 +55,6 @@ https://docs.spring.io/spring-data/relational/reference/kotlin/coroutines.html
 [[section-202412-4일]]
 4일
 ===
+### ALPN
+https://datatracker.ietf.org/doc/html/rfc7301
+
