@@ -126,6 +126,8 @@ https://velog.io/@redjen/%EB%A0%88%EB%94%94%EC%8A%A4%EB%8A%94-%EC%99%9C-%EB%B9%A
 1. i/o 멀티플렉싱
 2. 싱글쓰레드 기반이라 컨텍스트 스위칭등에서 자유롭다 동시성처리 X
 하지만 i/o작업에 한해서 멀티쓰레딩도 적용되었다 (redis 6.0)
+https://charsyam.wordpress.com/2020/05/05/%EC%9E%85-%EA%B0%9C%EB%B0%9C-redis-6-0-threadedio%EB%A5%BC-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90/
+
 3. 인메모리 기반 DB이다.
 
 ---
