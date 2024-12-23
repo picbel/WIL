@@ -122,4 +122,38 @@ https://iorilan.medium.com/it-is-fast-may-not-be-a-good-answer-to-discuss-redis-
 https://velog.io/@redjen/%EB%A0%88%EB%94%94%EC%8A%A4%EB%8A%94-%EC%99%9C-%EB%B9%A0%EB%A5%BC%EA%B9%8C
 정리하기
 
+---
+[[section-202412-23일]]
+23일
+===
+### epoll 내부 동작 방식
+
+1. epoll 객체 생성:
+Red-Black Tree (RB-Tree): 등록된 파일 디스크립터(FD)를 관리하는 데 사용됩니다. 이 구조는 FD를 효율적으로 추가, 삭제, 검색할 수 있도록 설계되었습니다.
+Ready List: RB-Tree에 등록된 FD 중에서 이벤트가 발생한 FD를 별도로 관리하는 리스트입니다. 이 구조는 이벤트 발생 시 epoll_wait가 빠르게 반환될 수 있도록 돕습니다.
+추가적으로, Ready List는 링크드 리스트로 구현되며, 이미 Ready List에 추가된 FD는 중복해서 추가되지 않는 특징이 있습니다.
+
+2. epoll에 FD 등록:
+epoll_ctl은 FD를 추가(ADD), 수정(MOD), 삭제(DEL)하는 데 사용됩니다.
+FD를 등록하면 RB-Tree에 추가됩니다. 등록 시, FD에 감시할 이벤트 타입(예: 읽기 가능, 쓰기 가능, 에러 발생 등)을 지정합니다.
+이 단계에서는 Ready List는 여전히 비어 있습니다. 이벤트가 발생하기 전까지 FD는 Ready List로 이동하지 않습니다.
+
+3. 유저 애플리케이션은 Ready List를 감시:
+epoll_wait를 호출하면 Ready List에 이벤트가 발생한 FD가 있는지 확인합니다.
+Ready List에 항목이 없으면 애플리케이션은 지정된 타임아웃 시간 동안 블록되거나, 타임아웃이 없을 경우 계속 대기(sleep) 상태에 있습니다.
+Ready List에 이벤트가 발생한 FD가 있으면, 해당 FD가 반환됩니다.
+
+4. 네트워크 카드 드라이버에서 데이터 수신:
+네트워크 카드에서 데이터를 수신하면, NIC(Network Interface Card)가 데이터를 메모리로 DMA(Direct Memory Access)를 통해 전달합니다.
+이후 커널의 네트워크 스택이 데이터를 처리하며, FD의 소켓 버퍼에 데이터를 저장합니다.
+FD가 읽기 가능 상태가 되었는지 확인하는 과정에서 소켓 상태 변화 이벤트가 발생하면, 해당 FD가 Ready List로 이동됩니다.
+
+5. FD를 Ready List로 이동:
+소켓 버퍼에 데이터가 기록되거나 FD에 지정된 이벤트 조건(예: 쓰기 가능)이 만족되면 커널은 FD를 Ready List로 이동시킵니다.
+Ready List는 FD와 이벤트 정보를 포함하며, epoll_wait가 호출될 때 반환될 준비 상태가 됩니다.
+
+6. 유저 애플리케이션이 Ready List 확인:
+epoll_wait가 Ready List의 FD를 반환하면, 애플리케이션은 FD를 사용해 데이터를 읽거나 처리합니다.
+FD가 이벤트 처리를 완료한 후에도 조건이 계속 만족되면, FD는 다시 Ready List에 남아 있을 수 있습니다. 이 경우, 중복 처리를 방지하기 위해 애플리케이션에서 추가 처리가 필요할 수 있습니다.
+
 
