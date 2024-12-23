@@ -129,7 +129,7 @@ https://velog.io/@redjen/%EB%A0%88%EB%94%94%EC%8A%A4%EB%8A%94-%EC%99%9C-%EB%B9%A
 적용되는 부분은 다음과 같다
 - 클라이언트가 전송한 명령을 네트웍으로 읽어서 파싱하는 부분
 - 명령이 처리된 결과 메시지를 클라이언트에게 네트웍으로 전달하는 부분
-https://charsyam.wordpress.com/2020/05/05/%EC%9E%85-%EA%B0%9C%EB%B0%9C-redis-6-0-threadedio%EB%A5%BC-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90/
+https://charsyam.wordpress.com/2020/05/05/%EC%9E%85-%EA%B0%9C%EB%B0%9C-redis-6-0-threadedio%EB%A5%BC-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90
 
 3. 인메모리 기반 DB이다.
 
