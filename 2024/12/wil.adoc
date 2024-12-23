@@ -133,8 +133,8 @@ https://velog.io/@redjen/%EB%A0%88%EB%94%94%EC%8A%A4%EB%8A%94-%EC%99%9C-%EB%B9%A
 ### epoll 내부 동작 방식
 
 1. epoll 객체 생성:
-Red-Black Tree (RB-Tree): 등록된 파일 디스크립터(FD)를 관리하는 데 사용됩니다. 이 구조는 FD를 효율적으로 추가, 삭제, 검색할 수 있도록 설계되었습니다.
-Ready List: RB-Tree에 등록된 FD 중에서 이벤트가 발생한 FD를 별도로 관리하는 리스트입니다. 이 구조는 이벤트 발생 시 epoll_wait가 빠르게 반환될 수 있도록 돕습니다.
+**Red-Black** Tree (RB-Tree): 등록된 파일 디스크립터(FD)를 관리하는 데 사용됩니다. 이 구조는 FD를 효율적으로 추가, 삭제, 검색할 수 있도록 설계되었습니다.
+**Ready List**: RB-Tree에 등록된 FD 중에서 이벤트가 발생한 FD를 별도로 관리하는 리스트입니다. 이 구조는 이벤트 발생 시 epoll_wait가 빠르게 반환될 수 있도록 돕습니다.
 추가적으로, Ready List는 링크드 리스트로 구현되며, 이미 Ready List에 추가된 FD는 중복해서 추가되지 않는 특징이 있습니다.
 
 2. epoll에 FD 등록:
