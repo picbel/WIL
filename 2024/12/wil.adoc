@@ -143,8 +143,8 @@ epoll_wait를 호출하면 Ready List에 이벤트가 발생한 FD가 있는지 
 Ready List에 항목이 없으면 애플리케이션은 지정된 타임아웃 시간 동안 블록되거나, 타임아웃이 없을 경우 계속 대기(sleep) 상태에 있습니다.
 Ready List에 이벤트가 발생한 FD가 있으면, 해당 FD가 반환됩니다.
 
-4. 네트워크 카드 드라이버에서 데이터 수신:
-네트워크 카드에서 데이터를 수신하면, NIC(Network Interface Card)가 데이터를 메모리로 DMA(Direct Memory Access)를 통해 전달합니다.
+4. 이벤트 발생(네트워크 예시): 
+네트워크 카드 드라이버에서 데이터 수신하면, NIC(Network Interface Card)가 데이터를 메모리로 DMA(Direct Memory Access)를 통해 전달합니다.
 이후 커널의 네트워크 스택이 데이터를 처리하며, FD의 소켓 버퍼에 데이터를 저장합니다.
 FD가 읽기 가능 상태가 되었는지 확인하는 과정에서 소켓 상태 변화 이벤트가 발생하면, 해당 FD가 Ready List로 이동됩니다.
 
