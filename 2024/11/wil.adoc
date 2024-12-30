@@ -68,6 +68,7 @@ TCP는 데이터를 순서대로 전달해야하는 프로토콜이다.
 ### 히카리cp 커넥션 시간과 mysql커넥션풀의 시간
 히카리cp mysql 카넥션 유지시간 조사
 
+
 https://seongonion.tistory.com/157?utm_source=chatgpt.com
 
 ---
