@@ -50,9 +50,6 @@ data에 crud행위를 추상화한 인터페이스인 CrudRepository처럼 코�
 
 https://docs.spring.io/spring-data/relational/reference/kotlin/coroutines.html
 
-
-
-
 ---
 
 [[section-202412-4일]]
@@ -70,12 +67,14 @@ Http 프로토콜을 정하기위한 협상 과정
 ===
 ### 벌크헤드 패턴
 
+
 ---
 
 [[section-202412-12일]]
 12일
 ===
 ### 서킷브레이커
+
 
 ---
 
@@ -139,6 +138,7 @@ https://velog.io/@redjen/%EB%A0%88%EB%94%94%EC%8A%A4%EB%8A%94-%EC%99%9C-%EB%B9%A
 https://charsyam.wordpress.com/2020/05/05/%EC%9E%85-%EA%B0%9C%EB%B0%9C-redis-6-0-threadedio%EB%A5%BC-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90
 
 3. 인메모리 기반 DB이다.
+
 
 ---
 
