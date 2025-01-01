@@ -92,18 +92,18 @@ HikariCP의 maxLifetime이나 idleTimeout이 MySQL의 wait_timeout보다 길게 
 
 3. **권장 설정**
 HikariCP와 MySQL 설정은 다음과 같은 규칙을 따르면 좋다.
-- **HikariCP의 `maxLifetime`은 MySQL의 `wait_timeout`보다 짧게 설정해야 한다.**  
-   - 예:  
+* **HikariCP의 `maxLifetime`은 MySQL의 `wait_timeout`보다 짧게 설정해야 한다.**  
+** 예:  
      HikariCP `maxLifetime = 1500초 (25분)`  
      MySQL `wait_timeout = 1800초 (30분)`
 
-- **HikariCP의 `idleTimeout`은 MySQL의 `wait_timeout`보다 짧게 설정해야 한다.**  
-   - 예:  
+* **HikariCP의 `idleTimeout`은 MySQL의 `wait_timeout`보다 짧게 설정해야 한다.**  
+** 예:  
      HikariCP `idleTimeout = 600초 (10분)`  
      MySQL `wait_timeout = 1800초 (30분)`
 
-- **HikariCP의 `maxLifetime`은 HikariCP의 `idleTimeout`보다 길게 설정해야 한다.**  
-   - 예:  
+* **HikariCP의 `maxLifetime`은 HikariCP의 `idleTimeout`보다 길게 설정해야 한다.**  
+** 예:  
      HikariCP `idleTimeout = 600초 (10분)`  
      HikariCP `maxLifetime = 1500초 (25분)`
 
