@@ -18,3 +18,65 @@
 ===
 ### Java의 GC
 
+**1. Garbage Collection(GC)의 역할**
+- **자동 메모리 관리**: 더 이상 참조되지 않는 객체를 제거하여 메모리 누수를 방지.
+- 프로그래머가 직접 메모리를 해제하지 않아도 JVM이 자동으로 관리.
+
+**2. GC의 기본 원리: Reachability Analysis**
+- **GC Root**에서 시작해 객체 그래프를 탐색하며 도달 가능한 객체와 도달 불가능한 객체를 구분.
+- **GC Root의 예**:
+  - JVM 스택의 로컬 변수
+  - 스태틱 필드
+  - 활성 스레드
+  - JNI 참조
+- **객체 상태**:
+  1. **Strongly Reachable**: GC 대상이 아님.
+  2. **Weakly Reachable**: Weak Reference를 통해 참조, GC 가능.
+  3. **Phantom Reachable**: Phantom Reference로 관리, 메모리에서 해제 가능.
+  4. **Unreachable**: GC에 의해 제거 대상.
+
+**3. GC의 동작 단계**
+1. **Mark 단계**:
+   - Reachability Analysis로 도달 가능한 객체를 마킹.
+2. **Sweep 단계**:
+   - 마킹되지 않은 객체를 메모리에서 제거.
+3. **Compact 단계** (필요 시):
+   - 조각화를 방지하기 위해 살아남은 객체를 Heap의 한쪽으로 이동.
+
+**4. GC가 관리하는 Heap 영역**
+1. **Young Generation**:
+   - 새로 생성된 객체 저장. 대부분의 객체는 짧은 생명 주기를 가짐.
+   - **Minor GC**: Young Generation을 정리.
+2. **Old Generation**:
+   - Young Generation에서 살아남은 객체가 이동. 긴 생명 주기를 가짐.
+   - **Major GC** 또는 **Full GC**: Old Generation을 정리.
+3. **Metaspace** (JDK 8 이후):
+   - 클래스 메타데이터 저장. Permanent Generation을 대체.
+
+**5. GC 알고리즘과 Stop-the-World(STW)**
+- **STW 문제**:
+  - GC 실행 중 애플리케이션이 멈추는 현상.
+  - GC의 효율과 사용자 경험에 영향을 미침.
+  
+**GC 알고리즘**
+1. **Serial GC**:
+   - 단일 스레드로 GC 실행, STW 시간이 길다.
+2. **Parallel GC**:
+   - 멀티스레드로 GC 실행, 처리량 중점.
+3. **CMS GC (Concurrent Mark-Sweep)**:
+   - STW 시간을 줄이기 위해 동시 작업 수행. 조각화 발생 가능.
+4. **G1 GC**:
+   - 영역(Region) 단위로 GC를 수행, STW 시간을 최소화.
+   - Pause Time 목표 설정 가능.
+6. **Shenandoah GC (JDK 12 이상)**:
+   - Compact 작업도 동시 수행하여 STW 최소화.
+
+**6. GC 최적화와 튜닝**
+- **옵션 설정**:
+  - `-XX:+UseG1GC`: G1 GC 사용.
+  - `-Xms`, `-Xmx`: 힙 크기 설정.
+- **모니터링 도구**:
+  - JConsole, VisualVM, Java Flight Recorder(JFR).
+- **튜닝 목표**:
+  - 적절한 힙 크기와 GC 알고리즘 선택으로 STW 최소화 및 성능 최적화.
+
