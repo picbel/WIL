@@ -110,7 +110,7 @@ resilience4j
 
 ---
 
-[[section-202501-9일]]
+[[section-202501-11일]]
 11일
 ===
 ### Redis standalone vs Sentinel vs cluster
@@ -196,3 +196,6 @@ MOVED 102 192.168.1.2:6379
 
 ---
 
+[[section-202501-18일]]
+18일
+===
