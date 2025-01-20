@@ -200,7 +200,6 @@ MOVED 102 192.168.1.2:6379
 18일
 ===
 ### Stackful Coroutines vs Stackless Coroutines
-https://charlezz.com/?p=44635
 
 스택풀 코루틴 (Stackful Coroutines)
 정의
