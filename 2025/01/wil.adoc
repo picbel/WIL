@@ -230,6 +230,7 @@ MOVED 102 192.168.1.2:6379
 23일
 ===
 ### JVM OOM Out Of Memory Error
+
 java.lang.OutOfMemoryError: Java heap space
 java.lang.OutOfMemoryError: GC overhead limit exceeded
 
@@ -254,3 +255,5 @@ GC 동작을 확인하기 위해 로그를 활성화합니다
 특히, Static 컬렉션 객체에 주의.
 
 모니터링 도구와 프로파일링 도구로 메모리 사용을 지속적으로 관리.
+
+
