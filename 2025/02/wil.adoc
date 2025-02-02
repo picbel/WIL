@@ -1,0 +1,18 @@
+// Metadata:
+:description: Week I Learnt
+:keywords: study, til, lwil
+// Settings:
+:doctype: book
+:toc: left
+:toclevels: 4
+:sectlinks:
+:icons: font
+:hardbreaks:
+
+
+[[section-202502]]
+== 2025년 2월
+
+[[section-202502-2일]]
+2일
+===
