@@ -234,6 +234,7 @@ MOVED 102 192.168.1.2:6379
 java.lang.OutOfMemoryError: Java heap space
 java.lang.OutOfMemoryError: GC overhead limit exceeded
 
+정리중;
 
 메모리 설정 조정
 JVM 힙 메모리 크기를 늘려줍니다
