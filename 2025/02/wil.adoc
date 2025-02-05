@@ -16,6 +16,6 @@
 [[section-202502-5일]]
 5일
 ===
-### MySql의 Mvcc
+### MySql의 MVCC
 
 
