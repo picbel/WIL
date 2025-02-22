@@ -16,8 +16,27 @@
 [[section-202502-5일]]
 5일
 ===
-### MySql의 MVCC
-mysql의 repeated read에서 어떻게 팬텀리드를 방지하는가?
+### MySQL의 MVCC
+
+MySQL의 MVCC는 Undo Log 기반의 버전 관리를 통해 동작하며, 트랜잭션이 시작될 때 일관된 스냅샷(consistent snapshot) 을 제공한다.
+
+1. 트랜잭션 ID (Transaction ID, trx_id)
+각 트랜잭션이 시작될 때 자동 증가하는 ID가 할당됨.
+trx_id는 Undo Log 및 MVCC에서 버전 관리를 하는 데 중요한 역할을 함.
+
+2. Undo Log
+UPDATE, DELETE 같은 DML 연산이 수행될 때 기존 데이터의 이전 버전(Older Version)을 Undo Log에 저장함.
+트랜잭션이 스냅샷 기반으로 조회하면 Undo Log를 참고하여 해당 시점의 데이터를 복원함.
+
+3. Read View
+트랜잭션이 시작될 때 생성되는 데이터의 스냅샷.
+현재 트랜잭션에서 볼 수 있는 유효한 트랜잭션 ID 목록을 포함.
+Read View를 사용하여 트랜잭션 시작 시점의 데이터를 유지할 수 있음.
+
+주의) MVCC는 SELECT FOR UPDATE 같은 잠금 쿼리에는 적용되지 않음
+SELECT FOR UPDATE, LOCK IN SHARE MODE 같은 잠금을 포함한 쿼리는 MVCC가 아닌 **행 잠금(Row Lock)**을 사용하여 데이터 일관성을 유지합니다.
+
+---
 
 [[section-202502-7일]]
 7일
