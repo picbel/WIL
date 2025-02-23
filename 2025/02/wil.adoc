@@ -49,3 +49,9 @@ REPEATABLE READ에서는 트랜잭션이 끝날 때까지 유지되지만, READ 
 ===
 ### DB 트랜잭션이 서드파티 API 호출로 인해 길어질 때 발생하는 문제와 원인
 커넥션풀 고갈 문제
+
+
+[[section-202502-23일]]
+23일
+===
+### select for update와 LOCK IN SHARE MODE 차이
