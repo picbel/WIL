@@ -54,4 +54,4 @@ REPEATABLE READ에서는 트랜잭션이 끝날 때까지 유지되지만, READ 
 [[section-202502-23일]]
 23일
 ===
-### select for update와 LOCK IN SHARE MODE 차이
+### SELECT FOR UPDATE 와 LOCK IN SHARE MODE 차이
