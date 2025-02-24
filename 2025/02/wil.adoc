@@ -55,3 +55,8 @@ REPEATABLE READ에서는 트랜잭션이 끝날 때까지 유지되지만, READ 
 23일
 ===
 ### SELECT FOR UPDATE 와 LOCK IN SHARE MODE 차이
+
+[[section-202502-24일]]
+24일
+===
+### 자바의 Integer Cache 
