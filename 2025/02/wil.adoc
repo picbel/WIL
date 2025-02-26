@@ -62,4 +62,12 @@ REPEATABLE READ에서는 트랜잭션이 끝날 때까지 유지되지만, READ 
 ===
 ### 자바의 Integer Cache 
 
+[[section-202502-26일]]
+26일
+===
+### 자바 가상 쓰레드의 호출 스택(Call Stack)은 힙(Heap)에 저장된다
+https://openjdk.org/jeps/444
+
+Memory use and interaction with garbage collection
+The stacks of virtual threads are stored in Java's garbage-collected heap as stack chunk objects. The stacks grow and shrink as the application runs, both to be memory-efficient and to accommodate stacks of depth up to the JVM's configured platform thread stack size. This efficiency is what enables a large number of virtual threads and thus the continued viability of the thread-per-request style in server applications.
 
