@@ -44,6 +44,7 @@ REPEATABLE READ에서는 트랜잭션이 끝날 때까지 유지되지만, READ 
 ### aws 오로라 db와 mysql 차이
 페일오버 등등 설명하기
 
+
 [[section-202502-18일]]
 18일
 ===
@@ -61,6 +62,7 @@ REPEATABLE READ에서는 트랜잭션이 끝날 때까지 유지되지만, READ 
 24일
 ===
 ### 자바의 Integer Cache 
+
 
 [[section-202502-26일]]
 26일
