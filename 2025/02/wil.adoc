@@ -41,15 +41,54 @@ REPEATABLE READ에서는 트랜잭션이 끝날 때까지 유지되지만, READ 
 [[section-202502-7일]]
 7일
 ===
-### aws 오로라 db와 mysql 차이
-페일오버 등등 설명하기
+### AWS Aurora vs MySQL  
+
+**스토리지 아키텍처**  
+- **MySQL**: 단일 노드 스토리지, 마스터-슬레이브 복제  
+- **Aurora**:  3개의 가용 영역(AZ)에 6개 복제, 자동 확장(10GB~128TB)  
+
+**성능**  
+- **읽기**: Aurora는 최대 15개의 Read Replica 지원 (MySQL은 비동기 복제)  
+- **쓰기**: 병렬 쓰기 최적화로 MySQL 대비 최대 5배 성능 향상  
+
+**가용성 & 복구**  
+- **MySQL**: 장애 시 수동 Failover  
+- **Aurora**: 자동 Failover (30초 이내), 자동 백업 & PITR 지원  
+
+**비용**  
+- **MySQL**: EC2에서 직접 운영하면 비용 절감 가능  
+- **Aurora**: 관리형 서비스로 운영 부담 감소하지만 비용이 높음  
+
+**언제 선택할까?**  
+- **Aurora**: 대규모 트래픽, 고가용성이 필요한 서비스  
+- **MySQL**: 비용이 중요한 경우, 작은 프로젝트  
 
 
 [[section-202502-18일]]
 18일
 ===
-### DB 트랜잭션이 서드파티 API 호출로 인해 길어질 때 발생하는 문제와 원인
-커넥션풀 고갈 문제
+### DB 트랜잭션이 서드파티 API 호출로 인해 길어질 때 발생하는 문제
+
+**문제점**
+
+* **DB 커넥션 고갈**
+** 트랜잭션이 길어지면 사용 가능한 커넥션 풀(Connection Pool)이 부족해질 수 있음. 애플리케이션의 커넥션풀 또한 고갈될수있다
+* **트랜잭션 잠금 지속**
+** DB 트랜잭션이 유지되는 동안 해당 데이터에 대한 **락(Lock)**이 해제되지 않아 다른 트랜잭션이 대기함.  
+* **Deadlock 위험 증가**
+** 여러 트랜잭션이 서로 락을 점유하면서 교착 상태(Deadlock)가 발생할 가능성이 높아짐.  
+* **성능 저하**
+** API 응답 시간이 길어질수록 트랜잭션이 오래 유지되며, 시스템의 전체적인 처리량(Throughput)이 저하됨.  
+
+**해결 방법**  
+
+* **트랜잭션을 Persistence layer 에서만 수행**
+* **트랜잭션과 API 호출을 분리**  
+** API 호출 전에 DB 작업을 수행하고, 트랜잭션을 커밋한 후 API를 호출하는 방식으로 변경.  
+* **비동기 처리 활용**  
+** API 호출을 비동기로 처리하고, 결과를 별도의 프로세스로 업데이트.  
+* **트랜잭션 최소화**  
+** DB 작업이 필요한 부분만 트랜잭션으로 감싸고, 불필요하게 트랜잭션을 유지하지 않도록 설계.  
 
 
 [[section-202502-23일]]
@@ -57,19 +96,74 @@ REPEATABLE READ에서는 트랜잭션이 끝날 때까지 유지되지만, READ 
 ===
 ### SELECT FOR UPDATE 와 LOCK IN SHARE MODE 차이
 
+[cols="1,2,2", options="header"]
+|===
+|  | `SELECT FOR UPDATE` | `LOCK IN SHARE MODE`
+| **락의 종류** | *행 잠금(Row Lock, X Lock)* | *공유 락(Shared Lock, S Lock)*
+| **읽기 가능 여부** | ✅ 다른 트랜잭션에서 일반 `SELECT` 가능 | ✅ 다른 트랜잭션에서 일반 `SELECT` 가능
+| **쓰기 가능 여부 (`UPDATE` / `DELETE`)** | 🚫 다른 트랜잭션에서 수정 불가능 (대기) | ✅ 다른 트랜잭션에서 `UPDATE`, `DELETE` 가능하지만 **모든 공유 락이 해제될 때까지 대기**
+| **다른 트랜잭션의 `SELECT FOR UPDATE` 접근** | 🚫 대기 (락 해제될 때까지 기다림) | 🚫 `SELECT FOR UPDATE`가 접근 불가능 (충돌)
+| **다른 트랜잭션의 `LOCK IN SHARE MODE` 접근** | 🚫 `LOCK IN SHARE MODE`가 접근 불가능 (충돌) | ✅ 가능 (서로 공유 락 허용)
+| **일반 `SELECT` 접근** | ✅ 가능 (락 없이 읽을 수 있음) | ✅ 가능 (락 없이 읽을 수 있음)
+|===
+
+개념 설명  
+1. **`SELECT FOR UPDATE`와 `LOCK IN SHARE MODE`는 서로 충돌함**  
+   - `SELECT FOR UPDATE`는 **행에 대한 독점 락(X Lock)**을 걸기 때문에,  
+     다른 트랜잭션이 같은 행에 대해 `LOCK IN SHARE MODE`로 접근하면 **대기 상태(Block)** 발생.  
+   - 반대로, `LOCK IN SHARE MODE`가 이미 걸려 있는 상태에서 다른 트랜잭션이 `SELECT FOR UPDATE`를 실행하면 **대기**하게 됨.  
+
+2. **`LOCK IN SHARE MODE`끼리는 서로 공유 가능하지만, `UPDATE`, `DELETE`는 공유 락이 해제될 때까지 대기**  
+   - 같은 `LOCK IN SHARE MODE`끼리는 충돌 없이 읽을 수 있음.  
+   - 하지만 **해당 행을 `UPDATE`하거나 `DELETE`하려면 공유 락이 풀릴 때까지 기다려야 함**.  
+
 
 [[section-202502-24일]]
 24일
 ===
 ### 자바의 Integer Cache 
+Java의 Integer 클래스는 특정 범위의 정수를 **캐싱(Cache)**하여 객체 생성 비용을 줄이고 성능을 최적화하는 기능을 제공함.
 
+#### **Integer 캐싱 동작 방식**  
+
+- `Integer.valueOf(int)`를 사용할 때, 특정 범위의 정수는 **새로운 객체를 생성하지 않고 캐시된 인스턴스를 재사용**함.  
+- 기본적으로 **`-128 ~ 127` 범위의 정수**가 캐싱됨.  
+- 이 범위를 벗어나는 경우 **새로운 `Integer` 객체가 생성**됨.  
+
+```java
+public class IntegerCacheExample {
+    public static void main(String[] args) {
+        Integer a = Integer.valueOf(100);
+        Integer b = Integer.valueOf(100);
+        System.out.println(a == b);  // ✅ true (같은 객체)
+
+        Integer x = Integer.valueOf(200);
+        Integer y = Integer.valueOf(200);
+        System.out.println(x == y);  // ❌ false (다른 객체)
+    }
+}
+```
+`100`은 `-128 ~ 127` 범위에 속하므로 **같은 객체가 재사용됨**  
+`200`은 범위를 초과하므로 **새로운 객체가 생성됨**  
+
+**Integer 캐시 범위 변경 가능**
+JVM 실행 옵션을 사용하면 **캐시 범위를 변경할 수 있음**.  
+- `-XX:AutoBoxCacheMax=<숫자>` 옵션으로 설정 가능  
+- 예: `-XX:AutoBoxCacheMax=500`  
 
 [[section-202502-26일]]
 26일
 ===
-### 자바 가상 쓰레드의 호출 스택(Call Stack)은 힙(Heap)에 저장된다
-https://openjdk.org/jeps/444
+### Java 가상 쓰레드의 호출 스택(Call Stack)은 힙(Heap)에 저장된다
 
+Java의 가상 쓰레드의 호출 스택은 Java의 가비지 컬렉션이 관리하는 힙(heap) 메모리에 stack chunk 객체로 저장됩니다.
+
+이 방식은 Java 가상 쓰레드가 스택리스 코루틴보다 스택풀 코루틴의 특성을 일부 갖는 이유 중 하나입니다.
+
+출처 : https://openjdk.org/jeps/444
+____
 Memory use and interaction with garbage collection
 The stacks of virtual threads are stored in Java's garbage-collected heap as stack chunk objects. The stacks grow and shrink as the application runs, both to be memory-efficient and to accommodate stacks of depth up to the JVM's configured platform thread stack size. This efficiency is what enables a large number of virtual threads and thus the continued viability of the thread-per-request style in server applications.
+____
+
 
