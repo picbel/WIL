@@ -231,31 +231,34 @@ MOVED 102 192.168.1.2:6379
 ===
 ### JVM OOM Out Of Memory Error
 
-java.lang.OutOfMemoryError: Java heap space
-java.lang.OutOfMemoryError: GC overhead limit exceeded
+**JVM OutOfMemoryError 유형**
 
-정리중;
+- **`java.lang.OutOfMemoryError: Java heap space`**  
+  - JVM의 힙(heap) 영역에서 메모리가 부족하여 객체를 할당할 수 없을 때 발생.  
+- **`java.lang.OutOfMemoryError: GC overhead limit exceeded`**  
+  - GC가 과도하게 실행되지만, 실제로 확보되는 메모리가 적은 경우 발생. (보통 GC가 98% 이상 CPU를 사용하면서 2% 미만의 메모리만 회수하는 경우)  
 
-메모리 설정 조정
-JVM 힙 메모리 크기를 늘려줍니다
-메모리 누수 확인
-Heap Dump 분석
-GC 튜닝
-GC 로그 활성화:
-GC 동작을 확인하기 위해 로그를 활성화합니다
+1. JVM 메모리 설정 조정  
+OOM이 발생하면 우선적으로 JVM의 메모리 설정을 확인해야 한다.  
 
-코드 최적화
-데이터 구조 최적화:
-필요한 만큼만 데이터를 로드하고, 가능한 경우 스트리밍 처리 사용.
-예: List 대신 Stream 사용.
+- **힙 메모리 크기 조정**  
+  - `-Xmx` 옵션을 사용하여 힙의 최대 크기를 조정하기.  
+  - 예: `-Xmx4G` (최대 힙 크기를 4GB로 설정)  
+- **GC 로그 활성화**  
+  - GC 동작을 확인하기 위해 다음과 같은 옵션을 추가하여 로그를 분석하기.  
+  ```sh
+  -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:gc.log
+  ```
 
-캐시 관리:
-적절한 만료 정책을 적용해 캐시 크기를 관리합니다.
+2. 메모리 누수 확인 및 Heap Dump 분석  
+OOM이 지속적으로 발생한다면 **메모리 누수(leak)** 를 의심해야 합니다.  
 
-객체 관리:
-불필요한 객체 참조 제거 (null 처리).
-특히, Static 컬렉션 객체에 주의.
+- **Heap Dump 분석**  
+  - `jmap` 또는 `-XX:+HeapDumpOnOutOfMemoryError` 옵션을 사용하여 Heap Dump를 저장한 후 분석.  
+  - 예: `-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./heapdump.hprof`  
+  - Heap Dump 파일(`.hprof`)을 **Eclipse MAT** 또는 **VisualVM** 같은 도구로 분석하여 메모리를 과다 점유하는 객체를 찾을 수 있다.  
 
-모니터링 도구와 프로파일링 도구로 메모리 사용을 지속적으로 관리.
-
+3. Static 변수 주의
+  - static 변수는 클래스가 로드된 동안 유지되므로, 클래스가 언로드되지 않는 한 GC의 대상이 되지 않는다.
+  - 특히, static 변수를 컬렉션(List, Map, Set)으로 설정하고 데이터를 계속 추가하면, 해당 객체는 애플리케이션이 종료될 때까지 참조가 유지되어 메모리 누수가 발생할 가능성이 높다.
 
