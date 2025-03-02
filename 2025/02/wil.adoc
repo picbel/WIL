@@ -107,7 +107,9 @@ REPEATABLE READ에서는 트랜잭션이 끝날 때까지 유지되지만, READ 
 | **일반 `SELECT` 접근** | ✅ 가능 (락 없이 읽을 수 있음) | ✅ 가능 (락 없이 읽을 수 있음)
 |===
 
+
 개념 설명  
+
 1. **`SELECT FOR UPDATE`와 `LOCK IN SHARE MODE`는 서로 충돌함**  
    - `SELECT FOR UPDATE`는 **행에 대한 독점 락(X Lock)**을 걸기 때문에,  
      다른 트랜잭션이 같은 행에 대해 `LOCK IN SHARE MODE`로 접근하면 **대기 상태(Block)** 발생.  
