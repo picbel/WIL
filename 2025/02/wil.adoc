@@ -110,14 +110,14 @@ REPEATABLE READ에서는 트랜잭션이 끝날 때까지 유지되지만, READ 
 
 개념 설명  
 
-1. **`SELECT FOR UPDATE`와 `LOCK IN SHARE MODE`는 서로 충돌함**  
-   - `SELECT FOR UPDATE`는 **행에 대한 독점 락(X Lock)**을 걸기 때문에,  
-     다른 트랜잭션이 같은 행에 대해 `LOCK IN SHARE MODE`로 접근하면 **대기 상태(Block)** 발생.  
-   - 반대로, `LOCK IN SHARE MODE`가 이미 걸려 있는 상태에서 다른 트랜잭션이 `SELECT FOR UPDATE`를 실행하면 **대기**하게 됨.  
+1. `SELECT FOR UPDATE` 와 `LOCK IN SHARE MODE` 는 서로 충돌함 
+   - `SELECT FOR UPDATE` 는 **행에 대한 독점 락(X Lock)**을 걸기 때문에,  
+     다른 트랜잭션이 같은 행에 대해 `LOCK IN SHARE MODE` 로 접근하면 **대기 상태(Block)** 발생.  
+   - 반대로, `LOCK IN SHARE MODE` 가 이미 걸려 있는 상태에서 다른 트랜잭션이 `SELECT FOR UPDATE` 를 실행하면 **대기**하게 됨.  
 
-2. **`LOCK IN SHARE MODE`끼리는 서로 공유 가능하지만, `UPDATE`, `DELETE`는 공유 락이 해제될 때까지 대기**  
+2. `LOCK IN SHARE MODE` 끼리는 서로 공유 가능하지만, `UPDATE` , `DELETE` 는 공유 락이 해제될 때까지 대기
    - 같은 `LOCK IN SHARE MODE`끼리는 충돌 없이 읽을 수 있음.  
-   - 하지만 **해당 행을 `UPDATE`하거나 `DELETE`하려면 공유 락이 풀릴 때까지 기다려야 함**.  
+   - 하지만 **해당 행을 `UPDATE` 하거나 `DELETE` 하려면 공유 락이 풀릴 때까지 기다려야 함**.  
 
 
 [[section-202502-24일]]
