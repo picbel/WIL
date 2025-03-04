@@ -132,10 +132,41 @@ ALPN은 TLS 핸드셰이크 과정에서 클라이언트와 서버가 사용할 
 1. **`Dispatchers.Default`**
    - CPU 집약적인 작업에 적합.
    - 공유된 스레드 풀에서 실행.
+   - 스레드 풀 크기 : CPU 코어 갯수
+   - 내부에서 싱글톤으로 디스페쳐가 선언되어있고 생성시 createScheduler()를 통해 스케줄러를 생성한 상태
+```kotlin
+// Instance of Dispatchers.Default
+internal object DefaultScheduler : SchedulerCoroutineDispatcher(
+   CORE_POOL_SIZE, MAX_POOL_SIZE,
+   IDLE_WORKER_KEEP_ALIVE_NS, DEFAULT_SCHEDULER_NAME
+)
+
+// SchedulerCoroutineDispatcher의 내부에서 CoroutineScheduler를 생성해서 executor로 활용한다.
+internal open class SchedulerCoroutineDispatcher(
+    private val corePoolSize: Int = CORE_POOL_SIZE,
+    private val maxPoolSize: Int = MAX_POOL_SIZE,
+    private val idleWorkerKeepAliveNs: Long = IDLE_WORKER_KEEP_ALIVE_NS,
+    private val schedulerName: String = "CoroutineScheduler",
+) : ExecutorCoroutineDispatcher() {
+
+    override val executor: Executor
+        get() = coroutineScheduler
+
+    // This is variable for test purposes, so that we can reinitialize from clean state
+    private var coroutineScheduler = createScheduler()
+
+    private fun createScheduler() =
+        CoroutineScheduler(corePoolSize, maxPoolSize, idleWorkerKeepAliveNs, schedulerName)
+
+   //... 생략
+}
+```
 
 2. **`Dispatchers.IO`**
    - I/O 작업(네트워크, 파일)에 최적화.
    - 많은 스레드를 사용하는 풀에서 실행.
+   - 스레드 풀 크기 : 64개 또는 CPU 코어 갯수가 64보다 크다면 CPU 코어 갯수
+   - 스레드 풀을 공유하지않고 생성될때마다 별도로 생성함
 
 3. **`Dispatchers.Main`**
    - 메인 스레드에서 실행.
@@ -153,6 +184,10 @@ ALPN은 TLS 핸드셰이크 과정에서 클라이언트와 서버가 사용할 
 - CPU 작업 → `Default`
 - I/O 작업 → `IO`
 `withContext`로 디스패처 변경 가능.
+
+**주의**
+limitedParallelism(n)함수 호출시 호출한 디스페쳐의 내부값을 변경하는 것이 아닌 기존 디스페쳐의 설정을 이어받은 `LimitedDispatcher`를 새로 생성해서 리턴한다.
+즉 limitedParallelism(n)를 통해 디스페쳐를 생성한 후에 결과를 사용해야한다.
 
 ---
 
