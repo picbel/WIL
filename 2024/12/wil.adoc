@@ -129,7 +129,7 @@ ALPN은 TLS 핸드셰이크 과정에서 클라이언트와 서버가 사용할 
 ===
 ### 코틀린 코루틴 디스패처
 
-1. **`Dispatchers.Default`**
+#### **`Dispatchers.Default`**
    - CPU 집약적인 작업에 적합.
    - 공유된 스레드 풀에서 실행.
    - 스레드 풀 크기 : CPU 코어 갯수
@@ -152,7 +152,6 @@ internal open class SchedulerCoroutineDispatcher(
     override val executor: Executor
         get() = coroutineScheduler
 
-    // This is variable for test purposes, so that we can reinitialize from clean state
     private var coroutineScheduler = createScheduler()
 
     private fun createScheduler() =
@@ -162,21 +161,29 @@ internal open class SchedulerCoroutineDispatcher(
 }
 ```
 
-2. **`Dispatchers.IO`**
+#### **`Dispatchers.IO`**
    - I/O 작업(네트워크, 파일)에 최적화.
    - 많은 스레드를 사용하는 풀에서 실행.
    - 스레드 풀 크기 : 64개 또는 CPU 코어 갯수가 64보다 크다면 CPU 코어 갯수
-   - 스레드 풀을 공유하지않고 생성될때마다 별도로 생성함
+   - Dispatchers.Default와 스레드풀을 내부적으로 공유함
+[quote]
+____
+This dispatcher and its views share threads with the Default dispatcher, so using withContext(Dispatchers.IO) { ... } when already running on the Default dispatcher typically does not lead to an actual switching to another thread. In such scenarios, the underlying implementation attempts to keep the execution on the same thread on a best-effort basis.
 
-3. **`Dispatchers.Main`**
+As a result of thread sharing, more than 64 (default parallelism) threads can be created (but not used) during operations over IO dispatcher.
+
+출처 : https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-i-o.html
+____
+
+#### **`Dispatchers.Main`**
    - 메인 스레드에서 실행.
    - 만약 해당 디스페처에서 블로킹 작업을 실행할시 메인 스레드가 블로킹 됨
 
-4. **`Dispatchers.Unconfined`**
+#### **`Dispatchers.Unconfined`**
    - 특정 스레드에 바인딩되지 않음.
    - 테스트나 간단한 작업에 사용.
 
-5. **커스텀 디스패처**
+#### **커스텀 디스패처**
    - `Executors` 등을 이용해 직접 생성.
    - 특정 요구사항에 맞는 실행 환경 구성.
 
