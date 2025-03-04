@@ -197,6 +197,7 @@ limitedParallelism(n)함수 호출시 호출한 디스페쳐의 내부값을 변
 즉 limitedParallelism(n)를 통해 디스페쳐를 생성한 후에 결과를 사용해야한다.
 
 참고 : https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/
+
 ---
 
 [[section-202412-22일]]
