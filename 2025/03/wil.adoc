@@ -18,3 +18,8 @@
 ===
 ### API Rate Limit
 
+토큰 버킷 알고리즘
+
+리퀘스트 카운터
+
+Spring Cloud Gateway를 이용한 Rate Limiting
