@@ -27,10 +27,10 @@ Spring Cloud Gateway를 이용한 Rate Limiting
 [[section-202503-10일]]
 10일
 ===
-Record Lock
+### Record Lock
 
 [[section-202503-17일]]
 17일
 ===
-MySQL의 데드락(Deadlock) 처리
+### MySQL의 데드락(Deadlock) 처리
 
