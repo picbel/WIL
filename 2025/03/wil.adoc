@@ -52,4 +52,4 @@ Redisson 문서에서도 Pub/Sub Lock 이 CPU 폭증과 트래픽 유발 문제�
 
 
 ---
-mysql의 GapLock
+mysql의 Gap Lock
