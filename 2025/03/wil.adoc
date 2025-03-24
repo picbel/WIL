@@ -49,3 +49,7 @@ Spring Cloud Gateway를 이용한 Rate Limiting
 23일
 ===
 Redisson 문서에서도 Pub/Sub Lock 이 CPU 폭증과 트래픽 유발 문제가 있음을 고지
+
+
+---
+mysql의 GapLock
