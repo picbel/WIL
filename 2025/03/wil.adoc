@@ -81,6 +81,20 @@ REPEATABLE READ 이상의 격리 수준에서는 **갭 락(Gap Lock)**, **넥스
 ===
 ### MySQL의 데드락(Deadlock) 처리
 
+1. **InnoDB의 데드락 감지 기능**  
+   - 기본적으로 활성화됨(MySQL 8.0.20 이상에서는 비활성화 가능).  
+   - 데드락 발생 시 **변경이 적은 트랜잭션을 롤백하여 해결**.  
+   - 하지만 **높은 동시성 환경에서는 성능 저하를 유발할 수 있음**.
+
+2. **`innodb_lock_wait_timeout`과의 차이**  
+   - `innodb_lock_wait_timeout`은 **단순한 락 대기 제한**(기본값 50초).  
+   - 특정 시간이 지나면 **대기 중인 트랜잭션을 실패시키는 설정**.  
+   - 데드락 감지 기능을 대체하는 것이 아니라, **일반적인 락 대기 시간을 제한**하는 역할.
+
+3. **고성능 환경에서의 최적화 전략**  
+   - 데드락 감지 기능이 오버헤드가 크다면 비활성화 가능 (`innodb_deadlock_detect=OFF`).  
+   - 대신 `innodb_lock_wait_timeout` 값을 적절히 조정하여 **트랜잭션이 오랫동안 대기하지 않도록 설정**.  
+
 ---
 
 [[section-202503-19일]]
@@ -88,12 +102,35 @@ REPEATABLE READ 이상의 격리 수준에서는 **갭 락(Gap Lock)**, **넥스
 ===
 ### 디바운싱과 쓰로틀링
 
+#### 디바운싱 (Debouncing)
+이벤트가 끝나고 일정 시간 지난 후에 딱 한 번 실행
+- 사용자가 계속 입력 중이면 실행하지 않음
+- 마지막 이벤트 이후 일정 시간동안 아무 이벤트도 발생하지 않으면 실행
+
+대표 예시
+- 검색창 자동완성: 입력 중에는 서버 호출 안 하고, 입력을 멈춘 뒤 일정 시간 후에 서버 요청
+
+#### 쓰로틀링 (Throttling)
+지정한 시간 간격으로 한 번씩만 실행
+- 이벤트가 계속 발생해도 일정 시간 간격마다 한 번만 실행
+- 주기적으로 실행하고 싶은 경우에 적합
+
+대표 예시
+- 스크롤 위치 추적: 스크롤이 계속 발생해도 100ms마다 한 번씩 이벤트 실행
+
 ---
 [[section-202503-23일]]
 23일
 ===
-Redisson 문서에서도 Pub/Sub Lock 이 CPU 폭증과 트래픽 유발 문제가 있음을 고지
+### Redisson Pub/Sub Lock 주의 사항
+Redis 클라이언트인 Redisson에서 Lock의 내부 구현은 Pub/Sub Lock 이다.
+따라서 아래 같은 주의 사항이 있다
 
+짧은 시간 동안 수 천 혹은 그 이상의 Lock 획득/반환이 일어날 경우 (Redisson의) Lock 객체가 사용하는 Pub/Sub 방식으로 인해서 네트워크 대역폭 제한에 걸릴 수 있고 Redis 혹은 Valkey의 CPU 부하가 발생할 수 있다. 
+이는 메시지가 클러스터의 모든 노드로 발송되는 Pub/Sub의 특성에서 기인한다.
+
+> Thousands or more locks acquired/released per short time interval may cause reaching of network throughput limit and Redis or Valkey CPU overload because of pubsub usage in Lock object. This occurs due to nature of pubsub - messages are distributed to all nodes in cluster.
+> 출처 공식문서 : https://redisson.org/docs/data-and-services/locks-and-synchronizers/#spin-lock
 
 ---
 mysql의 Gap Lock, Next-Key Lock
