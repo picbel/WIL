@@ -170,5 +170,4 @@ SELECT * FROM users WHERE id = 5 FOR UPDATE;
 - **데드락**이 발생할 가능성이 높아질 수 있음
 
 InnoDB는 `REPEATABLE READ` 격리 수준에서 **기본적으로 Next-Key Lock을 사용**한다.  
-**Gap Lock/Next-Key Lock을 정확히 이해하면** 트랜잭션 동시성 이슈나 성능 병목을 미리 방지할 수 있다.
 
