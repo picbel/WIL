@@ -17,3 +17,5 @@
 2일
 ===
 MySql의 User-Level-Lock GET_LOCK
+애도 master-slave 상황에서 락 유실 가능성은 있다
+
