@@ -19,3 +19,9 @@
 MySql의 User-Level-Lock GET_LOCK
 애도 master-slave 상황에서 락 유실 가능성은 있다
 
+---
+
+[[section-202504-4일]]
+4일
+===
+2pc
