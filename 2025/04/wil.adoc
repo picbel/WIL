@@ -33,3 +33,9 @@ MySql의 User-Level-Lock GET_LOCK
 ===
 블룸 필터
 
+---
+
+[[section-202504-6일]]
+6일
+===
+아웃박스 패턴
