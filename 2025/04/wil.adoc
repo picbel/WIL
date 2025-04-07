@@ -16,9 +16,61 @@
 [[section-202504-2일]]
 2일
 ===
-MySql의 User-Level-Lock GET_LOCK
-애도 master-slave 상황에서 락 유실 가능성은 있다
+### MySql의 User-Level-Lock (Named Lock)
+Named Lock이라고도 불리며 MySql공식문서를 보면 아래와 같이 지원하여준다.
+https://dev.mysql.com/doc/refman/8.0/en/locking-functions.html
+사용법은 공식문서를 통해 확인하기
 
+#### GET_LOCK()의 기본 동작
+GET_LOCK(name, timeout)은 User-level Lock을 획득한다.
+이 락은 **세션** 단위로 관리되며, 락을 획득한 세션이 종료되면 자동으로 해제된다.
+락 정보는 In-Memory에 저장되고, DB에 Persist 되지 않는다.
+
+User-Level-Lock의 경우 테이블이나 레코드가 아닌, 단순한 문자열을 기준으로 Lock을 획득한다.
+비관적 락은 레코드 수준에 락을 걸기 때문에, 다른 작업들을 처리하기 위한 커넥션들도 락이 걸린 레코드에 접근하지 못하게 됩니다.
+이러한 문제는 User-Level-Lock을 사용하면 발생하지 않습니다.
+정리하자면 기존의 데이터와 무관하게 Lock을 다룰수 있습니다.
+
+또한 Lock임으로 반드시 unlock을 잊지 말아야한다.
+
+**주의사항** : 
+##### Failover시 Lock 유실 가능성 있음
+
+Replication과 GET_LOCK() — Master-Slave 환경
+GET_LOCK()과 RELEASE_LOCK()은 **트랜잭션 로그(binlog)**에 기록되지 않습니다.
+즉, 이 명령어들은 Replication 되지 않습니다.
+Slave나 새로운 Master는 이전 Master에서 어떤 락이 잡혀 있었는지 알 수 없습니다.
+따라서 Failover 시에는 다음과 같은 일이 일어납니다
+```
+A 서버가 Master일 때 클라이언트가 GET_LOCK('foo')으로 락을 잡음.
+A가 다운되고 B가 Master로 승격됨.
+B에는 'foo' 락이 있었다는 정보가 없음.
+결과적으로,
+B에서 동일한 'foo' 락을 다시 획득할 수 있습니다. <- Lock 유실
+```
+GET_LOCK()으로 획득한 락은 Master 서버의 세션 메모리 내에만 존재합니다.
+따라서 Failover 후 새 Master에서는 해당 락이 존재하지 않음.
+즉, 해제할 수도 없고, 락이 유지되지도 않음.
+**즉 Failover 상황에서는 Lock 유실이 발생 할 수 있음**
+
+##### 사용시 Lock 커넥션과 로직이 실행되는 커넥션(세션) 분리
+스프링부트의 히카리 커넥션풀 기준 세션과 커넥션은 1:1 관계입니다.
+이 문제는 MySql의 mvcc, User-Level-Lock의 세션단위의 Lock이 얽히면서 발생하는 문제이다.
+USER-LEVEL Lock을 사용한다면 Lock을 얻는 트랜잭션과 로직을 수행하는데 사용되는 커넥션을 분리시켜야 합니다.
+우선 왜 두 트랜잭션을 분리해야 하는지에 대해 알아보면 트랜잭션이 분리되지 않은 경우, 다음과 같은 상황이 발생할 수 있습니다.
+```
+Tx1 - 트랜잭션 시작
+Tx2 - 트랜잭션 시작
+Tx1 - GET_LOCK('stock-a')
+Tx2 - GET_LOCK('stock-a') // TX1을 대기합니다
+Tx1 - select * from Stock ... // 재고 테이블 조회 재고 1개
+Tx1 - update ... // 재고 감소, 재고 0개
+Tx1 - RELEASE_LOCK('stock-a'), COMMIT // unlock
+Tx2 - 락 획득 후 select * from Stock ... // mvcc로 인해 재고가 1개로 조회됨
+Tx2 - update ... // 재고 감소, 재고 0개
+Tx1과 Tx2의 갱신손실 발생
+```
+위 처럼 트랜잭션이 동시에 실행되고 경합되었을때 시점에 따라 락 이후에 접근하는 데이터가 이전 데이터를 바라봐 동시성 문제가 발생할수 있음으로, 락획득과 로직의 두 트랜잭션은 분리되어야 합니다.
 ---
 
 [[section-202504-4일]]
