@@ -33,7 +33,7 @@ User-Level-Lock의 경우 테이블이나 레코드가 아닌, 단순한 문자�
 
 또한 Lock임으로 반드시 unlock을 잊지 말아야한다.
 
-**주의사항** : 
+#### **주의사항** 
 ##### Failover시 Lock 유실 가능성 있음
 
 Replication과 GET_LOCK() — Master-Slave 환경
