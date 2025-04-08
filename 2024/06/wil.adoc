@@ -53,7 +53,14 @@ RDB의 트랜잭션은 왠만하면 XA Transaction를 구현한다.
 
 #### 번외 : ChainedTransactionManager 란?
 
-ChainedTransactionManager가 deprecate 된 이유 : ChainedTransactionManager는 여러 트랜잭션 관리자를 조정하지만, ThreadLocal로 인해 롤백 시 불일치와 예기치 못한 동작을 초래할 수 있습니다. 특히 두 번째 트랜잭션 관리자 커밋 실패 시 복구가 어렵습니다. 이러한 이유로 ChainedTransactionManager와 관련 패키지를 사용 중단할 예정입니다.
+ChainedTransactionManager가 deprecate 된 이유 : 
+ChainedTransactionManager는 org.springframework.data.transaction 패키지의 주요 클래스이며, 다중 트랜잭션 매니저를 조율하는 데 사용됩니다. 특히 하나는 Spring 트랜잭션 매니저이고 다른 하나는 외부(외래) 트랜잭션 매니저일 때, 여러 리소스 간의 트랜잭션을 조정하는 데 유용합니다.
+
+하지만 시간이 지나면서, 이 방식은 기본적으로 결함이 명확한 상태에서의 분산 트랜잭션을 흉내내는 수준이라는 점이 드러났습니다. 이러한 결함들은 롤백 과정에서 일관성 문제나 예기치 못한 동작을 일으킬 수 있습니다. 문제의 일부는 리소스/동기화 정보가 singleton ThreadLocal에 저장된다는 점입니다.
+AbstractPlatformTransactionManager 기반의 두 트랜잭션 매니저를 사용할 경우, 모든 동기화 작업은 첫 번째 트랜잭션 매니저에 의해 처리되며, 이때 동기화의 실제 리소스가 무엇인지 구분하지 않습니다 (즉, 1차/2차 트랜잭션 리소스를 구분하지 않음).
+만약 두 번째 트랜잭션 매니저의 커밋이 실패하면, 이미 모든 동기화 작업이 끝난 상태이므로 복구할 방법이 없습니다.
+
+따라서 우리는 ChainedTransactionManager와 다중 트랜잭션을 지원하는 보조 클래스들이 포함된 org.springframework.data.transaction 전체를 deprecated 처리할 예정입니다.
 
 원문 링크 : https://github.com/spring-projects/spring-data-commons/issues/2232
 
