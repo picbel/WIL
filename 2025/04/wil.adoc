@@ -222,5 +222,10 @@ Outbox Pattern은 다음과 같이 동작함
 - **Poll 방식**: 일정 간격으로 `outbox` 테이블을 폴링하여 메시지 발행
 - **CDC 방식** (Change Data Capture): Debezium + Kafka Connect 사용하여 binlog 기반으로 outbox 이벤트 감지 → 실시간성 우수
 
-
-
+---
+[[section-202504-22일]]
+22일
+===
+### WAL : 로그 기반 복구(Write-Ahead Logging)
+Redo log
+undo log
