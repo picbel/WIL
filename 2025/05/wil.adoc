@@ -17,3 +17,9 @@
 1일
 ===
 ### 헤이즐캐스트
+
+[[section-202505-2일]]
+2일
+===
+### WebSoket vs SSE vs MQTT
+
