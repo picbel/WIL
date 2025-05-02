@@ -23,3 +23,7 @@
 ===
 ### WebSoket vs SSE vs MQTT
 
+[[section-202505-3일]]
+3일
+===
+### 하이브리드 암호화
