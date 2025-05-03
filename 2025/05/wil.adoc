@@ -26,14 +26,7 @@
 
 Hazelcast는 캐시로도 사용 가능하며, Map, Queue, Topic, Lock, ExecutorService 등 다양한 분산 자료구조와 연산 기능을 제공합니다.
 
-
-
-[[section-202505-2일]]
-2일
-===
-### WebSoket vs SSE vs MQTT
-
-
+---
 
 [[section-202505-3일]]
 3일
