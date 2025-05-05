@@ -55,3 +55,9 @@ Hazelcast는 캐시로도 사용 가능하며, Map, Queue, Topic, Lock, Executor
 HTTPS도 하이브리드 암호화의 대표적인 예
 초기 TLS Handshake에서 대칭키(세션키)를 협상하고, 이후 데이터 통신은 빠른 대칭키 방식으로 진행한다.
 
+---
+
+[[section-202505-5일]]
+5일
+===
+### 순차(Sequential) I/O, 랜덤(Random) I/O
