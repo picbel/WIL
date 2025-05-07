@@ -61,3 +61,7 @@ HTTPS도 하이브리드 암호화의 대표적인 예
 5일
 ===
 ### 순차(Sequential) I/O, 랜덤(Random) I/O
+
+
+
+
