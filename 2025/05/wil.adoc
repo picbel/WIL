@@ -112,3 +112,11 @@ HDD에서는 데이터가 물리적으로 서로 떨어진 위치에 존재하�
 | Clustering Index, Kafka 로그 저장, 파일 일괄 처리
 |===
 
+
+---
+
+[[section-202505-8일]]
+8일
+
+쓰레드 vs supplyAsync 사용법
+
