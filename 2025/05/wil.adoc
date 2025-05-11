@@ -195,7 +195,7 @@ ThreadPoolExecutor을 기준 스레드 풀 포화 정책이란 스레드풀이 �
 - 상시 유지하는 스레드의 수인 corePoolSize
 - 작업 대기열 크기인 workQueueSize
 - 스레드를 추가할 수 있는 최대 수인 maxPoolSize
-즉 corePoolSize, workQueueSize. maxPoolSize가 전부 꽉 찬상태 즉 스레드를 최대로 생성한 후에도 실행중인스레드, 대기열까지 전부 다 차면 포화상태로 정의된다.
+즉 corePoolSize, workQueueSize. maxPoolSize가 전부 꽉 찬상태 즉 스레드를 최대로 생성한 후에도 실행중인 스레드, 대기열까지 전부 다 차면 포화상태로 정의된다.
 이렇게 포화 상태가 되었을때 새로운 요청이 오면 포화 정책이 실행된다. 포화 정책은 RejectedExecutionHandler 의 구현체에서 정의된다.
 
 #### RejectedExecutionHandler
