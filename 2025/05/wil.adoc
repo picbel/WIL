@@ -188,11 +188,28 @@ CompletableFuture.supplyAsync()와 new Thread()의 **가장 본질적인 차이�
 
 ---
 
-### 스레드 풀 포화 정책
+### 스레드 풀 포화 정책(Saturation Policies)
+
+ThreadPoolExecutor을 기준 스레드 풀 포화 정책이란 스레드풀이 포화상태인 경우 행동을 결정하는 정책을 의미한다
+다음 기준이 충족되면 포화상태라 정의된다
+- 상시 유지하는 스레드의 수인 corePoolSize
+- 작업 대기열 크기인 workQueueSize
+- 스레드를 추가할 수 있는 최대 수인 maxPoolSize
+즉 corePoolSize, workQueueSize. maxPoolSize가 전부 꽉 찬상태 즉 스레드를 최대로 생성한 후에도 실행중인스레드, 대기열까지 전부 다 차면 포화상태로 정의된다.
+이렇게 포화 상태가 되었을때 새로운 요청이 오면 포화 정책이 실행된다. 포화 정책은 RejectedExecutionHandler 의 구현체에서 정의된다.
+
+#### RejectedExecutionHandler
+기본적으로 제공되는 RejectedExecutionHandler의 구현체는 4가지이다.
+- AbortPolicy: RejectedExecutionException을 발생시킨다.
+- DiscardPolicy: 신규 요청을 무시한다.
+- DiscardOldestPolicy: 작업 대기열에서 가장 오래된 요청을 버리고 신규 요청을 대기열에 추가한다.
+- CallerRunsPolicy: 요청 스레드에서 해당 작업을 실행한다.
+혹은 RejectedExecutionHandler 인터페이스를 구현하여 커스텀 포화 정책을 만들 수 있다.
 
 ---
 
 [[section-202505-9일]]
 9일
 ===
-커버링 인덱스
+### 커버링 인덱스
+
