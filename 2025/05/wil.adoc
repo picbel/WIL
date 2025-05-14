@@ -9,6 +9,7 @@
 :icons: font
 :hardbreaks:
 
+https://github.com/picbel/WIL/blob/main/2025/04/wil.adoc[이전 달]
 
 [[section-202505]]
 == 2025년 5월
