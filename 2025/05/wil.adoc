@@ -272,7 +272,11 @@ EXPLAIN SELECT a, b FROM tbl WHERE c = 1;
 인덱스가 [a,b], [c]처럼 분리되어 있고, WHERE c = 1 조건과 SELECT a, b를 사용하는 쿼리는 하나의 인덱스만으로 조건 + 출력 컬럼을 모두 커버할 수 없으므로, 커버링 인덱스가 아니다. 
 
 
+---
 
-
+[[section-202505-15일]]
+15일
+===
+### Kafka에서 exactly-once 보장하는 법
 
 
