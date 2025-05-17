@@ -280,3 +280,9 @@ EXPLAIN SELECT a, b FROM tbl WHERE c = 1;
 ### Kafka에서 exactly-once 보장하는 법
 
 
+---
+
+[[section-202505-17일]]
+17일
+===
+### Kafka의 특징 Sequential I/O, Zero copy, Consumer pull model
