@@ -279,7 +279,7 @@ EXPLAIN SELECT a, b FROM tbl WHERE c = 1;
 ===
 ### Kafka에서 Exactly-Once Semantics (EOS) 보장하는 법
 
-**Exactly-Once Semantics(EOS)**는 메시지가 프로듀서에서부터 컨슈머까지 전달 및 처리되는 과정에서 **정확히 한 번만 처리됨**을 보장하는 것을 의미합니다. Kafka는 다음 설정과 처리 방식을 통해 이를 지원합니다.
+**Exactly-Once Semantics(EOS)**는 메시지가 프로듀서에서부터 컨슈머까지 전달 및 처리되는 과정에서 **정확히 한 번만 처리됨**을 보장하는 것을 의미합니다. Kafka는 다음 설정과 처리 방식을 통해 이를 지원한다.
 
 #### 1. 프로듀서 측 설정 및 처리
 
