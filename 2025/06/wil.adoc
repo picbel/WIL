@@ -14,3 +14,7 @@ https://github.com/picbel/WIL/blob/main/2025/05/wil.adoc[이전 달]
 
 [[section-202506]]
 == 2025년 6월
+
+[[section-202506-7일]]
+7일
+===
