@@ -26,3 +26,4 @@ https://github.com/picbel/WIL/blob/main/2025/05/wil.adoc[이전 달]
 [[section-202506-14일]]
 14일
 ===
+### 타임아웃의 종류 정의
