@@ -20,7 +20,6 @@ https://github.com/picbel/WIL/blob/main/2025/05/wil.adoc[이전 달]
 ===
 ### TC/C (Try-Confirm/Cancel) 시도-확정/취소
 
-
 ---
 
 [[section-202506-14일]]
