@@ -11,6 +11,7 @@
 
 ---
 https://github.com/picbel/WIL/blob/main/2025/05/wil.adoc[이전 달]
+https://github.com/picbel/WIL/blob/main/2025/07/wil.adoc[이전 달]
 
 [[section-202506]]
 == 2025년 6월
@@ -40,3 +41,4 @@ https://github.com/picbel/WIL/blob/main/2025/05/wil.adoc[이전 달]
 24일
 ===
 ### Request Collapsing
+
