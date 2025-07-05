@@ -15,3 +15,9 @@ https://github.com/picbel/WIL/blob/main/2025/08/wil.adoc[다음 달]
 
 [[section-202507]]
 == 2025년 7월
+
+[[section-202507-5일]]
+5일
+===
+### Spring application에서 초기화 로직 등록
+
