@@ -21,3 +21,8 @@ https://github.com/picbel/WIL/blob/main/2025/08/wil.adoc[다음 달]
 ===
 ### Spring application에서 초기화 로직 등록
 
+[[section-202507-11일]]
+11일
+===
+### Java의 Seald, Permits, non-sealed
+
