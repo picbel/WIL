@@ -21,8 +21,24 @@ https://github.com/picbel/WIL/blob/main/2025/08/wil.adoc[다음 달]
 ===
 ### Spring application에서 초기화 로직 등록
 
+---
 [[section-202507-11일]]
 11일
 ===
 ### Java의 Seald, Permits, non-sealed
+
+---
+[[section-202507-13일]]
+13일
+===
+### synchronized 락 대상 별 범위 정리
+
+| 위치                              | 락 대상                        | 설명                                  |
+| ------------------------------- | --------------------------- | ----------------------------------- |
+| `synchronized(instance) {}`     | **해당 객체(instance)**         | 해당 객체에 대해 동기화. 같은 인스턴스를 기준으로 락 공유   |
+| `synchronized static method`    | **클래스 객체(Class.class)**     | 클래스 단위로 락이 걸림. 인스턴스가 달라도 락은 동일      |
+| `synchronized instance method`  | **해당 인스턴스(this)**           | 인스턴스 단위로 락이 걸림. 인스턴스가 다르면 락도 별개     |
+| `synchronized(SomeClass.class)` | **클래스 객체(SomeClass.class)** | 클래스 단위로 락이 걸림. static 메서드와 동일한 락 대상 |
+| `synchronized(this) {}`         | **현재 인스턴스**                 | 인스턴스 메서드에서 내부 블록 동기화 시 사용           |
+| `synchronized(lockObj) {}`      | **명시한 lock 객체**             | 락 범위를 명확히 지정 가능. 유연한 동기화 처리 가능      |
 
