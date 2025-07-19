@@ -42,3 +42,10 @@ https://github.com/picbel/WIL/blob/main/2025/08/wil.adoc[다음 달]
 | `synchronized(this) {}`         | **현재 인스턴스**                 | 인스턴스 메서드에서 내부 블록 동기화 시 사용           |
 | `synchronized(lockObj) {}`      | **명시한 lock 객체**             | 락 범위를 명확히 지정 가능. 유연한 동기화 처리 가능      |
 
+---
+[[section-202507-19일]]
+19일
+===
+
+
+
