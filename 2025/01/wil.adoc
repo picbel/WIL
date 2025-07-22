@@ -10,6 +10,10 @@
 :hardbreaks:
 
 
+---
+https://github.com/picbel/WIL/blob/main/2024/12/wil.adoc[이전 달]
+https://github.com/picbel/WIL/blob/main/2025/02/wil.adoc[다음 달]
+
 [[section-202501]]
 == 2025년 1월
 
