@@ -48,4 +48,7 @@ https://github.com/picbel/WIL/blob/main/2025/08/wil.adoc[다음 달]
 ===
 
 
-
+---
+[[section-202507-26일]]
+26일
+===
