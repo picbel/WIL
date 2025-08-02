@@ -9,6 +9,9 @@
 :icons: font
 :hardbreaks:
 
+---
+https://github.com/picbel/WIL/blob/main/2024/06/wil.adoc[이전 달]
+https://github.com/picbel/WIL/blob/main/2024/08/wil.adoc[다음 달]
 
 [[section-202407]]
 == 2024년 07월
