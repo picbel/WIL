@@ -9,6 +9,10 @@
 :icons: font
 :hardbreaks:
 
+---
+https://github.com/picbel/WIL/blob/main/2023/12/wil.adoc[다음 달]
+
+
 [[section-11월]]
 == 2023년 11월
 
