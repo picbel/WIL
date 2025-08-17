@@ -103,20 +103,198 @@ public non-sealed class Bus extends Vehicle { }  // Bus는 누구든 상속 가�
 13일
 ===
 ### synchronized 락 대상 별 범위 정리
+**같은 `lock` 객체를 공유**해야만 동기화 효과가 있습니다.
+
+1) `synchronized(instance) { ... }` — 특정 객체 인스턴스를 락으로 사용
+```java
+class Locker {
+    private int count = 0;
+    void doWork(Object lock) {
+        // lock 인스턴스가 같은 경우에만 상호배제
+        synchronized (lock) {
+            count++;
+            try { Thread.sleep(50); } catch (InterruptedException ignored) {}
+            System.out.println(Thread.currentThread().getName() + " -> " + count);
+        }
+    }
+}
+
+public class Ex1 {
+    public static void main(String[] args) {
+        Locker svc = new Locker();
+        Object shared = new Object();
+        Object other = new Object();
+
+        // T1/T2는 같은 lock(shared) 사용 → 직렬화됨
+        new Thread(() -> svc.doWork(shared), "T1").start();
+        new Thread(() -> svc.doWork(shared), "T2").start();
+
+        // T3은 다른 lock(other) → T1/T2와 동시 실행 가능
+        new Thread(() -> svc.doWork(other), "T3").start();
+    }
+}
+```
+
+
+2) `synchronized static method` — 클래스 객체(모듈 전체) 단위 락
+**같은 클래스**의 모든 스레드가 **하나의 락**을 공유합니다.
+
+```java
+class GlobalCounter {
+    private static int total = 0;
+
+    public static synchronized void add() { // 클래스 객체에 락
+        total++;
+        try { Thread.sleep(50); } catch (InterruptedException ignored) {}
+        System.out.println(Thread.currentThread().getName() + " -> total=" + total);
+    }
+}
+
+public class Ex2 {
+    public static void main(String[] args) {
+        // 인스턴스가 달라도 같은 클래스면 동일 락 공유
+        new Thread(GlobalCounter::add, "A").start();
+        new Thread(GlobalCounter::add, "B").start();
+    }
+}
+```
+
+3) `synchronized instance method` — 해당 인스턴스(this) 단위 락
+**인스턴스별로 락 분리**가 필요할 때 사용합니다.
+
+```java
+class Counter {
+    private int value = 0;
+
+    public synchronized void inc() { // this에 락
+        value++;
+        try { Thread.sleep(50); } catch (InterruptedException ignored) {}
+        System.out.println(Thread.currentThread().getName() + " -> value=" + value);
+    }
+}
+
+public class Ex3 {
+    public static void main(String[] args) {
+        Counter a = new Counter();
+        Counter b = new Counter();
+
+        // 같은 인스턴스 a를 동시에 호출 → 직렬화
+        new Thread(a::inc, "A1").start();
+        new Thread(a::inc, "A2").start();
+
+        // 다른 인스턴스 b에서는 동시에 진행 가능 (락 별개)
+        new Thread(b::inc, "B1").start();
+    }
+}
+```
+
+4) `synchronized(SomeClass.class)` — 클래스 객체를 명시적으로 락으로 사용
+`synchronized static method`와 같은 **클래스 단위 락**입니다.
+
+```java
+class ClassWide {
+    static void work() {
+        synchronized (ClassWide.class) { // static 메서드 락과 동일 대상
+            try { Thread.sleep(50); } catch (InterruptedException ignored) {}
+            System.out.println(Thread.currentThread().getName() + " in class-wide lock");
+        }
+    }
+}
+
+public class Ex4 {
+    public static void main(String[] args) {
+        new Thread(ClassWide::work, "X").start();
+        new Thread(ClassWide::work, "Y").start();
+    }
+}
+```
+
+5) `synchronized(this) { ... }` — 현재 인스턴스를 락으로 사용
+내부 블록에서 **명시적으로 this를 락**으로 사용할 때.
+
+```java
+class ThisLocker {
+    void doWork() {
+        synchronized (this) { // instance method의 synchronized와 동일 대상
+            try { Thread.sleep(50); } catch (InterruptedException ignored) {}
+            System.out.println(Thread.currentThread().getName() + " on this");
+        }
+    }
+}
+
+public class Ex5 {
+    public static void main(String[] args) {
+        ThisLocker obj = new ThisLocker();
+        new Thread(obj::doWork, "T1").start();
+        new Thread(obj::doWork, "T2").start(); // T1과 직렬화
+    }
+}
+```
+
+6) `synchronized(lockObj) { ... }` — 전용 락 객체로 범위/충돌 분리
+전용 락 객체를 분리해 **충돌 범위를 최소화**할 수 있습니다.
+주의: **`String` 리터럴, 오토박싱 Integer** 등을 락으로 쓰면 **인터닝/캐싱**으로 예기치 않은 공유가 발생할 수 있으니 \*\*전용 `new Object()`\*\*를 사용해야합니다.
+
+```java
+class FineGrainedService {
+    private final Object readLock  = new Object();
+    private final Object writeLock = new Object();
+
+    void readOp() {
+        synchronized (readLock) {
+            // 읽기계열 임계구역
+            System.out.println(Thread.currentThread().getName() + " read");
+        }
+    }
+
+    void writeOp() {
+        synchronized (writeLock) {
+            // 쓰기계열 임계구역 (read와 충돌 안 함)
+            System.out.println(Thread.currentThread().getName() + " write");
+        }
+    }
+}
+
+public class Ex6 {
+    public static void main(String[] args) {
+        FineGrainedService s = new FineGrainedService();
+        new Thread(s::readOp,  "R1").start();
+        new Thread(s::readOp,  "R2").start();
+        new Thread(s::writeOp, "W1").start();
+    }
+}
+```
+
+[cols="3,3,6", options="header"]
+|===
+| 위치
+| 락 대상
+| 설명
+
+| `synchronized(instance) { }`
+| **해당 객체(instance)**
+| 같은 인스턴스를 공유할 때만 상호배제. 인스턴스가 다르면 동시 실행 가능.
+
+| `synchronized static method`
+| **클래스 객체(Class.class)**
+| 클래스 단위 락. 인스턴스가 달라도 동일 클래스면 직렬화.
+
+| `synchronized instance method`
+| **해당 인스턴스(this)**
+| 인스턴스 단위 락. 인스턴스별로 병렬성 확보 가능.
+
+| `synchronized(SomeClass.class)`
+| **클래스 객체(SomeClass.class)**
+| 클래스 단위 명시적 락. static 메서드와 동일 대상.
+
+| `synchronized(this) { }`
+| **현재 인스턴스**
+| 블록 범위에서 this를 락으로 사용. instance method의 synchronized와 동일 대상.
+
+| `synchronized(lockObj) { }`
+| **명시한 lock 객체**
+| 전용 락으로 충돌 범위를 세분화. `new Object()` 등 별도 락 권장(문자열/오토박싱 객체 사용 지양).
+|===
 
 
 
-| 위치                              | 락 대상                        | 설명                                  |
-| ------------------------------- | --------------------------- | ----------------------------------- |
-| `synchronized(instance) {}`     | **해당 객체(instance)**         | 해당 객체에 대해 동기화. 같은 인스턴스를 기준으로 락 공유   |
-| `synchronized static method`    | **클래스 객체(Class.class)**     | 클래스 단위로 락이 걸림. 인스턴스가 달라도 락은 동일      |
-| `synchronized instance method`  | **해당 인스턴스(this)**           | 인스턴스 단위로 락이 걸림. 인스턴스가 다르면 락도 별개     |
-| `synchronized(SomeClass.class)` | **클래스 객체(SomeClass.class)** | 클래스 단위로 락이 걸림. static 메서드와 동일한 락 대상 |
-| `synchronized(this) {}`         | **현재 인스턴스**                 | 인스턴스 메서드에서 내부 블록 동기화 시 사용           |
-| `synchronized(lockObj) {}`      | **명시한 lock 객체**             | 락 범위를 명확히 지정 가능. 유연한 동기화 처리 가능      |
-
-
----
-[[section-202507-26일]]
-26일
-===
