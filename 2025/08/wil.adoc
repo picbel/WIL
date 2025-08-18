@@ -19,7 +19,7 @@ https://github.com/picbel/WIL/blob/main/2025/09/wil.adoc[다음 달]
 [[section-202508-18일]]
 18일
 ===
-### Amazon ElastiCache (Redis)사용시 클러스터 모드의 failover 테스트하기
+### Amazon ElastiCache (Redis)사용시 클러스터 모드의 failover 테스트방법
 ```
 aws elasticache test-failover \
   --replication-group-id my-redis-cluster \
