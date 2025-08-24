@@ -35,3 +35,5 @@ aws elasticache test-failover \
 24일
 ===
 ### socket timeout? read timeout?
+타임아웃 정리한거
+https://github.com/picbel/WIL/blob/main/2025/06/wil.adoc#%ED%83%80%EC%9E%84%EC%95%84%EC%9B%83%EC%9D%98-%EC%A2%85%EB%A5%98-%EC%A0%95%EC%9D%98
