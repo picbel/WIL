@@ -15,3 +15,8 @@ https://github.com/picbel/WIL/blob/main/2025/10/wil.adoc[다음 달]
 
 [[section-202509]]
 == 2025년 9월
+
+[[section-202509-02일]]
+2일
+===
+### Spring Batch 구조
