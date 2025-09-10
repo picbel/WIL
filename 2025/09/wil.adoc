@@ -20,3 +20,11 @@ https://github.com/picbel/WIL/blob/main/2025/10/wil.adoc[다음 달]
 2일
 ===
 ### Spring Batch 구조
+
+---
+
+
+[[section-202509-10일]]
+10일
+===
+### Jpa @OrderBy 등
