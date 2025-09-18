@@ -33,7 +33,7 @@ https://github.com/picbel/WIL/blob/main/2025/10/wil.adoc[다음 달]
 
 
 [[section-202509-18일]]
-10일
+18일
 ===
 ### Spring Page 어노테이션
 
