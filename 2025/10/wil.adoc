@@ -1,0 +1,21 @@
+// Metadata:
+:description: Week I Learnt
+:keywords: study, til, lwil
+// Settings:
+:doctype: book
+:toc: left
+:toclevels: 4
+:sectlinks:
+:icons: font
+:hardbreaks:
+
+---
+https://github.com/picbel/WIL/blob/main/2025/09/wil.adoc[이전 달]
+https://github.com/picbel/WIL/blob/main/2025/11/wil.adoc[다음 달]
+
+[[section-202510]]
+== 2025년 10월
+
+[[section-202510-01일]]
+1일
+===
