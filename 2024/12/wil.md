@@ -1,41 +1,54 @@
-// Metadata:
-:description: Week I Learnt
-:keywords: study, til, lwil
-// Settings:
-:doctype: book
-:toc: left
-:toclevels: 4
-:sectlinks:
-:icons: font
-:hardbreaks:
+---
+description: Week I Learnt
+keywords: [study, til, lwil]
+---
 
+[이전 달](../11/wil.md)
+[다음 달](../../2025/01/wil.md)
+
+# 2024년 12월
+
+## 목차
+- [2일](#2일)
+  - [TransactionManager 와 Kotlin Coroutine](#transactionmanager-와-kotlin-coroutine)
+- [4일](#4일)
+  - [ALPN](#alpn)
+- [9일](#9일)
+  - [벌크헤드 패턴](#벌크헤드-패턴)
+- [12일](#12일)
+  - [서킷브레이커 (Circuit Breaker)](#서킷브레이커-circuit-breaker)
+- [18일](#18일)
+  - [Java 쓰레드 풀의 active count](#java-쓰레드-풀의-active-count)
+- [19일](#19일)
+  - [코틀린 코루틴 디스패처](#코틀린-코루틴-디스패처)
+- [22일](#22일)
+  - [Redis가 빠른 이유](#redis가-빠른-이유)
+- [23일](#23일)
+  - [epoll 내부 동작 방식](#epoll-내부-동작-방식)
 
 ---
-https://github.com/picbel/WIL/blob/main/2024/11/wil.adoc[이전 달]
-https://github.com/picbel/WIL/blob/main/2025/01/wil.adoc[다음 달]
 
-[[section-202412]]
-== 2024년 12월
+<a name="2일"></a>
+## 2일
 
-[[section-202412-2일]]
-2일
-===
 ### TransactionManager 와 Kotlin Coroutine
 
 org.springframework:spring-tx 의 org.springframework.transaction.annotation.Transactinal 의 주석내용
-```
-* <h3>Transaction Management</h3>
-*
-* <p>This annotation commonly works with thread-bound transactions managed by a
-* {@link org.springframework.transaction.PlatformTransactionManager}, exposing a
-* transaction to all data access operations within the current execution thread.
-* <b>Note: This does NOT propagate to newly started threads within the method.</b>
-*
-* <p>Alternatively, this annotation may demarcate a reactive transaction managed
-* by a {@link org.springframework.transaction.ReactiveTransactionManager} which
-* uses the Reactor context instead of thread-local variables. As a consequence,
-* all participating data access operations need to execute within the same
-* Reactor context in the same reactive pipeline.
+```java
+/**
+ * <h3>Transaction Management</h3>
+ *
+ * <p>This annotation commonly works with thread-bound transactions managed by a
+ * {@link org.springframework.transaction.PlatformTransactionManager}, exposing a
+ * transaction to all data access operations within the current execution thread.
+ * <b>Note: This does NOT propagate to newly started threads within the method.</b>
+ *
+ * <p>Alternatively, this annotation may demarcate a reactive transaction managed
+ * by a {@link org.springframework.transaction.ReactiveTransactionManager} which
+ * uses the Reactor context instead of thread-local variables. As a consequence,
+ * all participating data access operations need to execute within the same
+ * Reactor context in the same reactive pipeline.
+ */
 ```
 위 주석내용을 간단히 요약하면 다음과 같다.
 
@@ -48,7 +61,7 @@ Reactor Context
 
 
 
-Spring Data에서 reactor와 코틀린 코루틴을 활용하여 CoroutineCrudRepository를 지원하기도 한다
+Spring Data에서 reactor와 코틀린 코루틴을 활용하여 CoroutineCrudRepository를 지원하기도 한다  
 data에 crud행위를 추상화한 인터페이스인 CrudRepository처럼 코루틴으로 data에 crud행위를 추상화한 인터페이스이다.
 
 
@@ -56,28 +69,28 @@ https://docs.spring.io/spring-data/relational/reference/kotlin/coroutines.html
 
 ---
 
-[[section-202412-4일]]
-4일
-===
+<a name="4일"></a>
+## 4일
+
 ### ALPN
-https://datatracker.ietf.org/doc/html/rfc7301
-Http 프로토콜을 정하기위한 협상 과정
+https://datatracker.ietf.org/doc/html/rfc7301  
+Http 프로토콜을 정하기위한 협상 과정  
 ALPN은 TLS 핸드셰이크 과정에서 클라이언트와 서버가 사용할 애플리케이션 프로토콜을 협상하기 위한 확장이다. HTTPS/2와 같은 프로토콜에서 사용된다.
 
 **동작원리**
-클라이언트 측: 클라이언트는 TLS 핸드셰이크 요청 시 자신이 지원하는 애플리케이션 프로토콜 목록을 ALPN 확장 필드에 포함시킨다.
-서버 측: 서버는 클라이언트의 프로토콜 목록을 확인한 뒤, 자신이 지원하는 프로토콜 중 하나를 선택해 응답한다.
-결과: 선택된 프로토콜이 TLS 핸드셰이크가 완료된 이후 애플리케이션 계층에서 사용된다.
+- 클라이언트 측: 클라이언트는 TLS 핸드셰이크 요청 시 자신이 지원하는 애플리케이션 프로토콜 목록을 ALPN 확장 필드에 포함시킨다.
+- 서버 측: 서버는 클라이언트의 프로토콜 목록을 확인한 뒤, 자신이 지원하는 프로토콜 중 하나를 선택해 응답한다.
+- 결과: 선택된 프로토콜이 TLS 핸드셰이크가 완료된 이후 애플리케이션 계층에서 사용된다.
 
 기존 TLS 핸드셰이크에 통합되어 별도 요청 없이 최적화된 연결을 제공한다. 클라이언트와 서버가 공통 프로토콜을 지원하지 않으면 협상이 실패할 수 있다.
 
 ---
 
-[[section-202412-9일]]
-9일
-===
+<a name="9일"></a>
+## 9일
+
 ### 벌크헤드 패턴
-벌크헤드 패턴은 애플리케이션의 리소스를 격리하여 장애가 특정 부분에서만 발생하도록 제한하는 아키텍처 패턴이다. 
+벌크헤드 패턴은 애플리케이션의 리소스를 격리하여 장애가 특정 부분에서만 발생하도록 제한하는 아키텍처 패턴이다.  
 (선박의 방수 격벽(bulkhead) 개념에서 유래한 것으로, 한 구역에 물이 들어와도 다른 구역으로 확산되지 않도록 설계된 원리와 유사하다.)
 
 핵심 개념
@@ -96,11 +109,11 @@ ALPN은 TLS 핸드셰이크 과정에서 클라이언트와 서버가 사용할 
 
 ---
 
-[[section-202412-12일]]
-12일
-===
+<a name="12일"></a>
+## 12일
+
 ### 서킷브레이커 (Circuit Breaker)
-서킷 브레이커 패턴은 시스템에서 장애 확산을 방지하고 복구를 지원하기 위해 사용하는 보호 메커니즘이다. 
+서킷 브레이커 패턴은 시스템에서 장애 확산을 방지하고 복구를 지원하기 위해 사용하는 보호 메커니즘이다.  
 (전기회로 차단기의 개념에서 유래했으며, 서비스 간 호출 실패가 계속될 경우 요청을 차단해 시스템 과부하를 막는다.)
 
 핵심 개념
@@ -120,17 +133,17 @@ ALPN은 TLS 핸드셰이크 과정에서 클라이언트와 서버가 사용할 
 
 ---
 
-[[section-202412-18일]]
-18일
-===
+<a name="18일"></a>
+## 18일
+
 ### Java 쓰레드 풀의 active count
-`ThreadPoolExecutor` 클래스의 `getActiveCount()` 메서드는 현재 작업을 수행 중인 쓰레드의 수를 반환한다.
+`ThreadPoolExecutor` 클래스의 `getActiveCount()` 메서드는 현재 작업을 수행 중인 쓰레드의 수를 반환한다.  
 만약 `Executors.newFixedThreadPool(n)`로 쓰레드 풀을 생성한 경우, `ThreadPoolExecutor`로 타입 변환해야 `getActiveCount()`를 사용할 수 있다.
 
 ---
-[[section-202412-19일]]
-19일
-===
+<a name="19일"></a>
+## 19일
+
 ### 코틀린 코루틴 디스패처
 
 #### **`Dispatchers.Default`**
@@ -170,14 +183,12 @@ internal open class SchedulerCoroutineDispatcher(
    - 많은 스레드를 사용하는 풀에서 실행.
    - 스레드 풀 크기 : 64개 또는 CPU 코어 갯수가 64보다 크다면 CPU 코어 갯수
    - Dispatchers.Default와 스레드풀을 내부적으로 공유함
-[quote]
-____
-This dispatcher and its views share threads with the Default dispatcher, so using withContext(Dispatchers.IO) { ... } when already running on the Default dispatcher typically does not lead to an actual switching to another thread. In such scenarios, the underlying implementation attempts to keep the execution on the same thread on a best-effort basis.
 
-As a result of thread sharing, more than 64 (default parallelism) threads can be created (but not used) during operations over IO dispatcher.
-
-출처 : https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-i-o.html
-____
+> This dispatcher and its views share threads with the Default dispatcher, so using withContext(Dispatchers.IO) { ... } when already running on the Default dispatcher typically does not lead to an actual switching to another thread. In such scenarios, the underlying implementation attempts to keep the execution on the same thread on a best-effort basis.
+> 
+> As a result of thread sharing, more than 64 (default parallelism) threads can be created (but not used) during operations over IO dispatcher.
+> 
+> 출처 : https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-i-o.html
 
 #### **`Dispatchers.Main`**
    - 메인 스레드에서 실행.
@@ -193,20 +204,20 @@ ____
 
 **사용 예시**: 
 - CPU 작업 → `Default`
-- I/O 작업 → `IO`
+- I/O 작업 → `IO`  
 `withContext`로 디스패처 변경 가능.
 
-**주의**
-limitedParallelism(n)함수 호출시 호출한 디스페쳐의 내부값을 변경하는 것이 아닌 기존 디스페쳐의 설정을 이어받은 `LimitedDispatcher`를 새로 생성해서 리턴한다.
+**주의**  
+limitedParallelism(n)함수 호출시 호출한 디스페쳐의 내부값을 변경하는 것이 아닌 기존 디스페쳐의 설정을 이어받은 `LimitedDispatcher`를 새로 생성해서 리턴한다.  
 즉 limitedParallelism(n)를 통해 디스페쳐를 생성한 후에 결과를 사용해야한다.
 
 참고 : https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/
 
 ---
 
-[[section-202412-22일]]
-22일
-===
+<a name="22일"></a>
+## 22일
+
 ### Redis가 빠른 이유
 
 1. **인메모리 기반**  
@@ -230,61 +241,57 @@ limitedParallelism(n)함수 호출시 호출한 디스페쳐의 내부값을 변
 
 ---
 
-[[section-202412-23일]]
-23일
-===
+<a name="23일"></a>
+## 23일
+
 ### epoll 내부 동작 방식
 
 1. epoll 객체 생성:
-**Red-Black Tree** (RB-Tree): 등록된 파일 디스크립터(FD)를 관리하는 데 사용됩니다. 이 구조는 FD를 효율적으로 추가, 삭제, 검색할 수 있도록 설계되었습니다.
-**Ready List**: RB-Tree에 등록된 FD 중에서 이벤트가 발생한 FD를 별도로 관리하는 리스트입니다. 이 구조는 이벤트 발생 시 epoll_wait가 빠르게 반환될 수 있도록 돕습니다.
+- **Red-Black Tree** (RB-Tree): 등록된 파일 디스크립터(FD)를 관리하는 데 사용됩니다. 이 구조는 FD를 효율적으로 추가, 삭제, 검색할 수 있도록 설계되었습니다.
+- **Ready List**: RB-Tree에 등록된 FD 중에서 이벤트가 발생한 FD를 별도로 관리하는 리스트입니다. 이 구조는 이벤트 발생 시 epoll_wait가 빠르게 반환될 수 있도록 돕습니다.  
 추가적으로, Ready List는 링크드 리스트로 구현되며, 이미 Ready List에 추가된 FD는 중복해서 추가되지 않는 특징이 있습니다.
 
 2. epoll에 FD 등록:
-epoll_ctl은 FD를 추가(ADD), 수정(MOD), 삭제(DEL)하는 데 사용됩니다.
-FD를 등록하면 RB-Tree에 추가됩니다. 등록 시, FD에 감시할 이벤트 타입(예: 읽기 가능, 쓰기 가능, 에러 발생 등)을 지정합니다.
-이 단계에서는 Ready List는 여전히 비어 있습니다. 이벤트가 발생하기 전까지 FD는 Ready List로 이동하지 않습니다.
+- epoll_ctl은 FD를 추가(ADD), 수정(MOD), 삭제(DEL)하는 데 사용됩니다.
+- FD를 등록하면 RB-Tree에 추가됩니다. 등록 시, FD에 감시할 이벤트 타입(예: 읽기 가능, 쓰기 가능, 에러 발생 등)을 지정합니다.
+- 이 단계에서는 Ready List는 여전히 비어 있습니다. 이벤트가 발생하기 전까지 FD는 Ready List로 이동하지 않습니다.
 
 3. 유저 애플리케이션은 Ready List를 감시:
-epoll_wait를 호출하면 Ready List에 이벤트가 발생한 FD가 있는지 확인합니다.
-Ready List에 항목이 없으면 애플리케이션은 지정된 타임아웃 시간 동안 블록되거나, 타임아웃이 없을 경우 계속 대기(sleep) 상태에 있습니다.
-Ready List에 이벤트가 발생한 FD가 있으면, 해당 FD가 반환됩니다.
+- epoll_wait를 호출하면 Ready List에 이벤트가 발생한 FD가 있는지 확인합니다.
+- Ready List에 항목이 없으면 애플리케이션은 지정된 타임아웃 시간 동안 블록되거나, 타임아웃이 없을 경우 계속 대기(sleep) 상태에 있습니다.
+- Ready List에 이벤트가 발생한 FD가 있으면, 해당 FD가 반환됩니다.
 
 4. 이벤트 발생(네트워크 예시): 
-네트워크 카드 드라이버에서 데이터 수신하면, NIC(Network Interface Card)가 데이터를 메모리로 DMA(Direct Memory Access)를 통해 전달합니다.
-이후 커널의 네트워크 스택이 데이터를 처리하며, FD의 소켓 버퍼에 데이터를 저장하고 해당 FD가 Ready List로 이동됩니다.
+- 네트워크 카드 드라이버에서 데이터 수신하면, NIC(Network Interface Card)가 데이터를 메모리로 DMA(Direct Memory Access)를 통해 전달합니다.
+- 이후 커널의 네트워크 스택이 데이터를 처리하며, FD의 소켓 버퍼에 데이터를 저장하고 해당 FD가 Ready List로 이동됩니다.
 
 5. FD를 Ready List로 이동:
-소켓 버퍼에 데이터가 기록되거나 FD에 지정된 이벤트 조건(예: 쓰기 가능)이 만족되면 커널은 FD를 Ready List로 이동시킵니다.
-Ready List는 FD와 이벤트 정보를 포함하며, epoll_wait가 호출될 때 반환될 준비 상태가 됩니다.
+- 소켓 버퍼에 데이터가 기록되거나 FD에 지정된 이벤트 조건(예: 쓰기 가능)이 만족되면 커널은 FD를 Ready List로 이동시킵니다.
+- Ready List는 FD와 이벤트 정보를 포함하며, epoll_wait가 호출될 때 반환될 준비 상태가 됩니다.
 
 6. 유저 애플리케이션이 Ready List 확인:
-epoll_wait가 Ready List의 FD를 반환하면, 애플리케이션은 FD를 사용해 데이터를 읽거나 처리합니다.
-FD가 이벤트 처리를 완료한 후에도 조건이 계속 만족되면, FD는 다시 Ready List에 남아 있을 수 있습니다. 이 경우, 중복 처리를 방지하기 위해 애플리케이션에서 추가 처리가 필요할 수 있습니다.
+- epoll_wait가 Ready List의 FD를 반환하면, 애플리케이션은 FD를 사용해 데이터를 읽거나 처리합니다.
+- FD가 이벤트 처리를 완료한 후에도 조건이 계속 만족되면, FD는 다시 Ready List에 남아 있을 수 있습니다. 이 경우, 중복 처리를 방지하기 위해 애플리케이션에서 추가 처리가 필요할 수 있습니다.
 
 #### epoll의 2가지 모드
 
 * Edge-Triggered (ET)
 상태 변화(예: 데이터 도착)가 발생한 순간 한 번만 Ready List에 FD가 추가됩니다.
-** 특징: 이벤트가 발생한 후 추가 상태 변화가 없으면, Ready List에 다시 추가되지 않습니다.
+  - 특징: 이벤트가 발생한 후 추가 상태 변화가 없으면, Ready List에 다시 추가되지 않습니다.
 데이터가 남아 있더라도 FD는 다시 반환되지 않으므로, 데이터를 모두 읽거나 써야 합니다.
-** 적합한 사용 사례:
+  - 적합한 사용 사례:
 고성능 요구 환경. 사용자 애플리케이션이 즉각적으로 처리하고 반복적으로 확인하지 않아도 되는 경우.
 
 * Level-Triggered (LT) 모드
 FD가 "읽기 가능" 또는 "쓰기 가능" 상태로 유지되는 동안, Ready List에 계속 FD가 추가됩니다.
-** 특징:
+  - 특징:
 데이터를 완전히 처리하지 않으면, 다음 epoll_wait 호출 시 같은 FD가 반복적으로 반환됩니다.
 모든 데이터를 철저히 읽거나 써야 불필요한 중복 반환이 방지됩니다.
-** 적합한 사용 사례:
+  - 적합한 사용 사례:
 단순하고 신뢰성 있는 처리를 원하는 경우. 애플리케이션이 데이터를 한 번에 처리하지 못할 수도 있는 경우.
 
-TMI : 레디스는 Edge-Triggered 모드를 사용한다.
-TMI2 : fd의 의미
-**fd(file descriptor)**는 커널에서 네트워크 소켓이나 파일을 식별하는 고유한 번호이다.
-fd 자체는 데이터를 포함하지 않지만, 이를 통해 소켓이나 파일에서 데이터를 읽거나 쓸 수 있다.
+TMI : 레디스는 Edge-Triggered 모드를 사용한다.  
+TMI2 : fd의 의미  
+**fd(file descriptor)**는 커널에서 네트워크 소켓이나 파일을 식별하는 고유한 번호이다.  
+fd 자체는 데이터를 포함하지 않지만, 이를 통해 소켓이나 파일에서 데이터를 읽거나 쓸 수 있다.  
 (Java에서는 fd를 추상화한 소켓 객체를 통해 데이터를 InputStream 또는 Channel 등을 사용하여 읽거나 쓸 수 있다.)
-
----
-
-

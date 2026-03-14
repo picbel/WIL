@@ -1,30 +1,39 @@
-// Metadata:
-:description: Last Week I Learnt
-:keywords: study, til, lwil
-// Settings:
-:doctype: book
-:toc: left
-:toclevels: 4
-:sectlinks:
-:icons: font
-:hardbreaks:
+---
+description: Last Week I Learnt
+keywords: [study, til, lwil]
+---
+
+[다음 달](https://github.com/picbel/WIL/blob/main/2023/12/wil.md)
+
+# 2023년 11월
+
+## 목차
+- [16일](#16일)
+  - [Spring IoC 컨테이너 및 빈 소개](#spring-ioc-컨테이너-및-빈-소개)
+  - [ApplicationContext는](#applicationcontext는)
+- [22일](#22일)
+  - [스프링의 DI](#스프링의-di)
+  - [DI의 2가지 방법](#di의-2가지-방법)
+  - [빈 등록 방법 with BeanDefinition](#빈-등록-방법-with-beandefinition)
+- [26일](#26일)
+  - [Spring의 depends-on, Lazy-initialized Beans](#spring의-depends-on-lazy-initialized-beans)
+    - [depends-on](#depends-on)
+    - [Lazy-initialized Beans](#lazy-initialized-beans)
+- [30일](#30일)
+  - [spring Lookup](#spring-lookup)
 
 ---
-https://github.com/picbel/WIL/blob/main/2023/12/wil.adoc[다음 달]
 
+<a name="16일"></a>
+## 16일
 
-[[section-11월]]
-== 2023년 11월
+### Spring IoC 컨테이너 및 빈 소개
+최근 스프링 공식문서를 번역해보면서 공부중인데 사소한 디테일까지 알게되는것 같아 생각보다 재미있다.  
+오늘 요약할것은 `Spring IoC 컨테이너 및 빈 소개` 글인데 내용을 간단히 요약하면 다음과 같다.
 
-[[section-11월-16일]]
-16일
-===
-### Spring IoC 컨테이너 및 빈 소개 
-최근 스프링 공식문서를 번역해보면서 공부중인데 사소한 디테일까지 알게되는것 같아 생각보다 재미있다. 
-오늘 요약할것은 `Spring IoC 컨테이너 및 빈 소개` 글인데 내용을 간단히 요약하면 다음과 같다. 
 > DI는 객체가 스스로 종속성을 관리하는 대신 생성자 인수, 팩토리 메서드 인수 등 속성 설정을 통해 종속성을 정의하고, 컨테이너가 bean을 생성할 때 이러한 종속성을 주입하는 프로세스입니다. 이것은 bean이 종속성을 직접 생성하거나 Service Locator 패턴과 같은 메커니즘을 사용하여 관리하는것과 정반대의 원칙입니다.
 
-```
+```text
 용어 정리
 IOC (Inversion of Control):
 IOC는 제어의 역전을 의미하며, 소프트웨어 컴포넌트 간의 제어 흐름의 역전을 말합니다. 객체 스스로가 제어의 주체가 되는 것이 아니라 외부 컨테이너나 프레임워크에 의해 제어의 주체가 바뀌는 것을 의미합니다. 
@@ -34,25 +43,26 @@ DI는 의존성 주입을 나타내며, 한 객체가 다른 객체에 필요한
 ```
 
 ---
+
 ### ApplicationContext는
 
-ApplicationContext는 BeanFactory의 하위 인터페이스이다. 다음 기능이 추가되었다 보면됩니다
-  - Easier integration with Spring’s AOP features(스프링 Aop와 더 쉬운 통합)
-  - Message resource handling (for use in internationalization)(메시지 리소스 처리)
-  - Event publication (이벤트 개시)
-  - Application-layer specific contexts such as the WebApplicationContext for use in web applications. (웹 응용 프로그램에서 사용하는 `WebApplicationContext`와 같은 응용 프로그램 레이어별 특정 컨텍스트.)
+ApplicationContext는 BeanFactory의 하위 인터페이스이다. 다음 기능이 추가되었다 보면됩니다.
+- Easier integration with Spring’s AOP features (스프링 Aop와 더 쉬운 통합)
+- Message resource handling (for use in internationalization) (메시지 리소스 처리)
+- Event publication (이벤트 개시)
+- Application-layer specific contexts such as the WebApplicationContext for use in web applications. (웹 응용 프로그램에서 사용하는 `WebApplicationContext`와 같은 응용 프로그램 레이어별 특정 컨텍스트.)
 
 ---
 
-[[section-11월-22일]]
-22일
-===
+<a name="22일"></a>
+## 22일
+
 ### 스프링의 DI
 
 의존성 주입 관련 공식문서를 번역하였는데 해당 문서를 읽으며 기억할만한 부분을 간단히 메모하여보겠습니다.  
-  스프링 Dependency Injection 문서에서 DI를 설명하는것을 요약하면 다음과 같습니다. 
-  > Dependency Injection은 객체가 자신과 작업하는 다른객체(협업하는 객체)를 생성자, 팩토리 메서드 인수, 객체 인스턴스가 생성된 후에 설정된 속성(정보)를 통해 정의하는 프로세스입니다. 그런다음 컨테이너가 Bean을 생성할 때 이러한 의존성을 주입합니다. 
-  스프링에선 DI를 하면 장점을 코드가 더 깔끔하고, 결합도를 효과적으로 낮출 수 있고 테스트하기도 더 쉬워진다고 합니다.
+스프링 Dependency Injection 문서에서 DI를 설명하는것을 요약하면 다음과 같습니다.
+> Dependency Injection은 객체가 자신과 작업하는 다른객체(협업하는 객체)를 생성자, 팩토리 메서드 인수, 객체 인스턴스가 생성된 후에 설정된 속성(정보)를 통해 정의하는 프로세스입니다. 그런다음 컨테이너가 Bean을 생성할 때 이러한 의존성을 주입합니다.  
+스프링에선 DI를 하면 장점을 코드가 더 깔끔하고, 결합도를 효과적으로 낮출 수 있고 테스트하기도 더 쉬워진다고 합니다.
 
 ---
 
@@ -68,20 +78,22 @@ ApplicationContext는 BeanFactory의 하위 인터페이스이다. 다음 기능
 `세터 기반 의존성 주입(Setter-based dependency injection)` 을 사용하는 경우도 있는데 아래와 같습니다.
 1. 클래스내에서 합리적인 기본값을 할당할 수 있는 선택적 의존성에 사용하여야한다. (그래야 사용시 null체크를 하지 않아도 됨)
 2. 필수불가결하게 순환 의존성(Circular dependencies)을 만들어야 하는경우 (권장하는 방법은 아님)
-```
+
+```text
 순환 의존성(Circular dependencies)
 classA가 classB를 참조하고 classB가 classA참조하는 이런 순환형 구조
 ```
+
 - 컨테이너는 다음과 같은 방식으로 Bean의존성을 해결합니다.
 > 1. `ApplicationContext` 는 모든 bean을 설명하는 구성 메타데이터로 생성되고 초기화됩니다. 구성 메타데이터는 XML, Java 코드 또는 주석을 통해 지정할 수 있습니다.
 > 2. 각 bean에 대해 해당 bean의 의존성이 속성, 생성자 인수 또는 정상적인 생성자 대신 사용할 경우 정적 팩토리 메서드의 인수 형식으로 표현됩니다. 이러한 의존성은 bean이 실제로 생성될 때 제공됩니다.
 > 3. 각 속성 또는 생성자 인수는 설정할 값의 실제 정의 또는 컨테이너 내의 다른 bean에 대한 참조입니다.
 > 4. 값으로 표시되는 각 속성 또는 생성자 인수는 지정된 형식에서 해당 속성 또는 생성자 인수의 실제 유형으로 변환됩니다. 기본적으로 Spring은 문자열 형식으로 제공된 값을 int, long, String, boolean 등의 모든 내장된 유형으로 변환할 수 있습니다.
 
-스프링 컨테이너는 컨테이너가 생성될 때 각 bean의 구성을 검증합니다.
-그러나 bean 속성은 실제로 bean이 생성될 때까지 설정되지 않습니다.
-싱글톤 범위(singleton-scoped) 및 미리 인스턴스화(pre-instantiated)로 설정된 bean은 컨테이너가 생성될 때 만들어집니다(기본값).
-범위(scope)는 bean 스코프에서 정의됩니다. 그렇지 않으면 bean은 요청될 때만 생성됩니다.
+스프링 컨테이너는 컨테이너가 생성될 때 각 bean의 구성을 검증합니다.  
+그러나 bean 속성은 실제로 bean이 생성될 때까지 설정되지 않습니다.  
+싱글톤 범위(singleton-scoped) 및 미리 인스턴스화(pre-instantiated)로 설정된 bean은 컨테이너가 생성될 때 만들어집니다(기본값).  
+범위(scope)는 bean 스코프에서 정의됩니다. 그렇지 않으면 bean은 요청될 때만 생성됩니다.  
 bean의 생성은 bean의 의존성 및 의존성의 의존성(및 그 이후)이 생성되고 할당되면서 일련의 bean 그래프를 만들 수 있습니다. 이러한 의존성 중 해결 불일치가 발생할 수 있으며, 이는 해당 bean이 처음으로 생성될 때 나타날 수 있습니다.
 
 Spring은 일반적으로 안정적으로 동작하며 컨테이너를 로드할 때 구성 문제를 감지하고 해결합니다. Spring은 bean을 생성하고 의존성을 설정하는 작업을 가능한 늦게 수행하여 런타임에 문제가 발생할 가능성을 최소화합니다. 이것은 bean이 실제로 필요한 시점에 생성되므로 미리 초기화되지 않으며, 이로써 구성 문제를 미리 파악하고 예외를 던질 수 있습니다. `ApplicationContext` 구현은 기본적으로 싱글톤 bean을 미리 초기화하도록 설계되어 있어 초기 시간과 메모리 비용이 약간 들지만, 구성 문제를 미리 감지하고 이후에 발생하지 않도록 합니다. 그러나 싱글톤 bean의 게으른 초기화를 설정하여 이 동작을 변경할 수도 있습니다.
@@ -94,36 +106,36 @@ Bean을 등록하기위해서는 xml로 미리 정보를 설정하거나 @Compon
 
 ---
 
-[[section-11월-26일]]
-26일
-===
+<a name="26일"></a>
+## 26일
+
 ### Spring의 depends-on, Lazy-initialized Beans
-spring 공식 문서 번역중 depends-on과 Lazy-initialized Beans에 대해 번역하였다.
+spring 공식 문서 번역중 depends-on과 Lazy-initialized Beans에 대해 번역하였다.  
 먼저 depends-on에 대해 간단히 설명하자면
 
 #### depends-on
-depends-on이 사용되는 빈은 초기화 되기전에 하나 이상의 빈이 명식적으로 초기화 되도록 강제합니다.
-추가로 몰랏던것은 depends-on을 이용하면 종료 순서도 제어 할 수 있다는것에 놀랏다.
+depends-on이 사용되는 빈은 초기화 되기전에 하나 이상의 빈이 명식적으로 초기화 되도록 강제합니다.  
+추가로 몰랏던것은 depends-on을 이용하면 종료 순서도 제어 할 수 있다는것에 놀랏다.  
 초기화때 종속성과 싱글톤 빈의 경우에는 dependency during destruction을 지정 할수 있다한다.
 
 #### Lazy-initialized Beans
-기본적으로 `ApplicationContext` 는 모든 싱글톤 빈을 미리 생성하고 구성합니다.
-이러한 미리 인스턴스화는 구성 및 환경의 오류를 즉시 발견하기 때문에 바람직합니다.
-하지만 이렇게 미리 만드는것을 원하지 않는다면 Lazy-initialized Beans 을 적용하면 됩니다
-빈 정의를 지연초기화로 표시하여 미리 인스턴스 하지않습니다.
+기본적으로 `ApplicationContext` 는 모든 싱글톤 빈을 미리 생성하고 구성합니다.  
+이러한 미리 인스턴스화는 구성 및 환경의 오류를 즉시 발견하기 때문에 바람직합니다.  
+하지만 이렇게 미리 만드는것을 원하지 않는다면 Lazy-initialized Beans 을 적용하면 됩니다.  
+빈 정의를 지연초기화로 표시하여 미리 인스턴스 하지않습니다.  
 지연 초기화 된 빈인 경우 Ioc 컨테이너는 처음 요청될 때 생성합니다.
 
-한가지 주의 할 점은 지연 초기화 빈이 지연 초기화가 아닌 싱글톤 빈의 종속성일때 `ApplicationContext` 는 시작시에 지연 초기화된 빈을 생성합니다.
-이는 싱글톤 종속성을 충족하기 위함입니다. 지연 초기화된 빈이 다른 지연 초기화 되지않는 싱글톤 빈에 주입됩니다.
+한가지 주의 할 점은 지연 초기화 빈이 지연 초기화가 아닌 싱글톤 빈의 종속성일때 `ApplicationContext` 는 시작시에 지연 초기화된 빈을 생성합니다.  
+이는 싱글톤 종속성을 충족하기 위함입니다. 지연 초기화된 빈이 다른 지연 초기화 되지않는 싱글톤 빈에 주입됩니다.  
 (생각해보면 당연한게 다른 지연 초기화 싱글톤 빈이 지연초기화빈을 최초 요청한 것이나 다름없기 때문인것 같다.)
 
 ---
 
-[[section-11월-30일]]
-30일
-===
+<a name="30일"></a>
+## 30일
+
 ### spring Lookup
-spring의 몰랏던 기능을 하나 알게되엇다.
+spring의 몰랏던 기능을 하나 알게되엇다.  
 공식문서를 꼼꼼히 읽어본 보람이 있다.
 
 spring의 LookUp 기능인데 다음과 같은 경우를 해결할 때 사용하면 좋다.  
@@ -136,22 +148,20 @@ spring의 LookUp 기능인데 다음과 같은 경우를 해결할 때 사용하
 만약 어떠한 요청이 올때마다 새로운 빈을 생성해야 한다면 위 방법으로는 해결 할 수 없습니다.  
 이럴때 Lookup Method Injection을 사용 하면 좋습니다.  
 Lookup Method Injection는 컨테이너가 컨테이너 관리 빈의 메서드를 재정의 하여 컨테이너네의 다른 이름을 가진 빈의 조회 결과를 반환하는 기능입니다.  
-프로토타입 빈만 가능합니다  
+프로토타입 빈만 가능합니다.  
 주의 사항은 아래와 같습니다.
 
-[NOTE]
-====
-* 이 동적 서브클래스 생성이 작동하려면 Spring 빈 컨테이너에서 서브클래스화할 클래스는 `final`일 수 없으며, 오버라이드될 메서드 역시 `final`일 수 없습니다.
-* `abstract` 메서드가 있는 클래스를 유닛 테스트하려면 해당 클래스를 직접 서브클래스화하고 `abstract` 메서드의 스텁 구현을 제공해야 합니다.
-* 구성 요소 스캐닝을 위해 구체적인 메서드도 필요하며, 구체적인 클래스를 선택해야 합니다.
-* 더 중요한 제한 사항 중 하나는 조회 메서드가 팩토리 메서드와 특히 구성 클래스의 `@Bean` 메서드와 함께 작동하지 않는다는 것입니다. 이 경우 컨테이너가 인스턴스를 생성하는 주체가 아니므로 런타임에 동적으로 생성된 서브클래스를 만들 수 없습니다.
-====
+> [!NOTE]
+> * 이 동적 서브클래스 생성이 작동하려면 Spring 빈 컨테이너에서 서브클래스화할 클래스는 `final`일 수 없으며, 오버라이드될 메서드 역시 `final`일 수 없습니다.
+> * `abstract` 메서드가 있는 클래스를 유닛 테스트하려면 해당 클래스를 직접 서브클래스화하고 `abstract` 메서드의 스텁 구현을 제공해야 합니다.
+> * 구성 요소 스캐닝을 위해 구체적인 메서드도 필요하며, 구체적인 클래스를 선택해야 합니다.
+> * 더 중요한 제한 사항 중 하나는 조회 메서드가 팩토리 메서드와 특히 구성 클래스의 `@Bean` 메서드와 함께 작동하지 않는다는 것입니다. 이 경우 컨테이너가 인스턴스를 생성하는 주체가 아니므로 런타임에 동적으로 생성된 서브클래스를 만들 수 없습니다.
 
-Lookup Method Injection의 사용법은 간단히 설명하면 다음과 같습니다
-프로토타입빈을 가지는 싱글톤 빈A가 있습니다
+Lookup Method Injection의 사용법은 간단히 설명하면 다음과 같습니다.  
+프로토타입빈을 가지는 싱글톤 빈A가 있습니다.  
 빈A에서 프로토타입빈을 가져오는 메서드를 등록시키면 스프링이 해당 메서드를 제정의하여 매번 프로토타입빈을 재생성하여 가져올수 있게 해줍니다.
 
-자세한 문법은 https://www.baeldung.com/spring-lookup 을 확인하면 좋습니다
+자세한 문법은 https://www.baeldung.com/spring-lookup 을 확인하면 좋습니다.
 
-해당 기능의 장단점이 있다면 스프링의 ioc도 잘지키면서 위 요구사항을 잘 지킬수있지만 테스트하기 좀 힘들어지는 단점이 있습니다
+해당 기능의 장단점이 있다면 스프링의 ioc도 잘지키면서 위 요구사항을 잘 지킬수있지만 테스트하기 좀 힘들어지는 단점이 있습니다.  
 (그래도 위와같은 요구사항이 나오면 사용하는것이 좋아보입니다)

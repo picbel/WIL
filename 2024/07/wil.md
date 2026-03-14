@@ -1,31 +1,43 @@
-// Metadata:
-:description: Week I Learnt
-:keywords: study, til, lwil
-// Settings:
-:doctype: book
-:toc: left
-:toclevels: 4
-:sectlinks:
-:icons: font
-:hardbreaks:
+---
+description: Week I Learnt
+keywords: [study, til, lwil]
+---
+
+[이전 달](https://github.com/picbel/WIL/blob/main/2024/06/wil.md)
+[다음 달](https://github.com/picbel/WIL/blob/main/2024/08/wil.md)
+
+# 2024년 07월
+
+## 목차
+- [3일](#3일)
+  - [LangChain](#langchain)
+- [5일](#5일)
+  - [1:N 관계의 테이블을 대용량으로 조회할 때 주의할 점](#1n-관계의-테이블을-대용량으로-조회할-때-주의할-점)
+- [8일](#8일)
+  - [TreeMap](#treemap)
+- [11일](#11일)
+  - [AVL Tree](#avl-tree)
+  - [Red-Black Tree](#red-black-tree)
+  - [AVL Tree, Red-Black Tree 요약](#avl-tree-red-black-tree-요약)
+- [14일](#14일)
+  - [정렬 성능 및 특징 정리](#정렬-성능-및-특징-정리)
+- [16일](#16일)
+  - [Diamond Problem in polymorphism](#diamond-problem-in-polymorphism)
+- [21일](#21일)
+  - [kotlin List 확장함수 binarySearch 주의사항](#kotlin-list-확장함수-binarysearch-주의사항)
+- [30일](#30일)
+  - [ReentrantLock, ReadWriteLock, StampedLock 성능 비교](#reentrantlock-readwritelock-stampedlock-성능-비교)
 
 ---
-https://github.com/picbel/WIL/blob/main/2024/06/wil.adoc[이전 달]
-https://github.com/picbel/WIL/blob/main/2024/08/wil.adoc[다음 달]
 
-[[section-202407]]
-== 2024년 07월
+<a name="3일"></a>
+## 3일
 
-
-[[section-202407-3일]]
-3일
-===
 ### LangChain
-
-LangChain은 대규모 언어 모델(LLM)을 기반으로 애플리케이션을 구축하는 오픈 소스 프레임워크입니다. LLM은 대량의 데이터로 사전 훈련된 딥 러닝 모델로, 사용자 쿼리에 응답을 생성할 수 있습니다. LangChain은 이러한 모델의 응답을 맞춤화하고 정확성을 높이는 도구와 추상화를 제공합니다. 이를 통해 개발자는 프롬프트 체인을 만들거나 템플릿을 맞춤화하고, 모델을 재훈련 없이 새 데이터에 접근할 수 있도록 할 수 있습니다.
+LangChain은 대규모 언어 모델(LLM)을 기반으로 애플리케이션을 구축하는 오픈 소스 프레임워크입니다. LLM은 대량의 데이터로 사전 훈련된 딥 러닝 모델로, 사용자 쿼리에 응답을 생성할 수 있습니다. LangChain은 이러한 모델의 응답을 맞춤화하고 정확성을 높이는 도구와 추상화를 제 공합니다. 이를 통해 개발자는 프롬프트 체인을 만들거나 템플릿을 맞춤화하고, 모델을 재훈련 없이 새 데이터에 접근할 수 있도록 할 수 있습니다.
 
 **LangChain의 중요성:**
-LLM은 일반적인 쿼리에는 잘 대응하지만, 특정 분야에서는 성능이 떨어집니다. LangChain은 내부 데이터 소스와 통합하고 프롬프트 엔지니어링을 통해 이러한 문제를 해결합니다. 이를 통해 데이터 사이언티스트는 입력을 구체화하여 생성 모델의 응답을 개선할 수 있습니다.
+LLM은 일반적인 쿼리에는 잘 대응하지만, 특정 분야에서는 성능이 떨어집니다. LangChain은 내 부 데이터 소스와 통합하고 프롬프트 엔지니어링을 통해 이러한 문제를 해결합니다. 이를 통해 데이터 사이언티스트는 입력을 구체화하여 생성 모델의 응답을 개선할 수 있습니다.
 
 **LangChain의 이점:**
 1. **언어 모델 용도 변경:** 재훈련 없이 LLM을 다양한 분야에 맞게 사용할 수 있습니다.
@@ -44,17 +56,15 @@ LLM은 일반적인 쿼리에는 잘 대응하지만, 특정 분야에서는 성
 
 ---
 
-[[section-202407-5일]]
-5일
-===
+<a name="5일"></a>
+## 5일
 
 ### 1:N 관계의 테이블을 대용량으로 조회할 때 주의할 점
-
-물론 한꺼번에 많은 데이터를 가져오지 않고, 한번에 읽을 수 있는 크기를 정해서 잘라서 가져오는 것이 많은 경우에 해답이 되지만, 
+물론 한꺼번에 많은 데이터를 가져오지 않고, 한번에 읽을 수 있는 크기를 정해서 잘라서 가져 오는 것이 많은 경우에 해답이 되지만,  
 그럼에도 불구하고 한번에 많은 양의 데이터를 가져오고 싶을 때 주의할 점을 이야기합니다.
 
-1:N 관계를 조회할 때 (테이블의 모든 컬럼을 조회한다고 가정할 경우), 결과의 개수는 N의 합만큼 응답됩니다. 
-인덱스가 잘 걸렸는지 여부와 관계없이 N 쪽에 의해 결과가 굉장히 커질 수 있다는 것을 항상 주의하며 쿼리해야 합니다.
+1:N 관계를 조회할 때 (테이블의 모든 컬럼을 조회한다고 가정할 경우), 결과의 개수는 N의 합 만큼 응답됩니다.  
+인덱스가 잘 걸렸는지 여부와 관계없이 N 쪽에 의해 결과가 굉장히 커질 수 있다는 것을 항상  주의하며 쿼리해야 합니다.
 
 예를 들어, A 테이블과 B 테이블이 있고, 관계는 A : B = 1:4~5 정도라 하겠습니다.
 
@@ -64,38 +74,37 @@ FROM A
 JOIN B ON A.id = B.aId;
 ```
 
-위 쿼리를 실행시킨다고 가정하면, 만약 A에서 5000행이 조회된다면 B는 45000행이 조회에 걸리고, 
-결과적으로 응답은 45000행으로 오게 됩니다. 이럴 경우 예상보다 데이터가 커지기 때문에 인덱스를 잘 건다고 해도 느려질 수 있다. 
+위 쿼리를 실행시킨다고 가정하면, 만약 A에서 5000행이 조회된다면 B는 45000행이 조회에 걸리고,  
+결과적으로 응답은 45000행으로 오게 됩니다. 이럴 경우 예상보다 데이터가 커지기 때문에 인덱스를 잘 건다고 해도 느려질 수 있다.
 
-> 특히 쿼리의 실행중에 join 연산 과정이나 중간 결과를 저장하기위해 B(N)의 데이터에 A(1)의 데이터를 복사하여 메모리에 저장하는데 이 과정에서 memory copy가 일어난다.
+> 특히 쿼리의 실행중에 join 연산 과정이나 중간 결과를 저장하기위해 B(N)의 데이터에 A(1)의 데이터를 복사하여 메모리에 저장하는데 이 과정에서 memory copy가 일어난다.  
 > memory copy가 기본적으로 cpu보다는 느린 작업이라 자주 발생하면 굉장한 성능 저하가 올 수 있다.
 
 따라서 다시 한 번 강조하지만, 쿼리의 크기를 조절해서 가져오는 것이 여러모로 좋은 방법이다.
 
 ---
 
-[[section-202407-8일]]
-8일
-===
-### TreeMap
+<a name="8일"></a>
+## 8일
 
-Java의 TreeMap은 키-값 쌍을 저장하는 자료구조로, 키를 기준으로 정렬된 이진 탐색 트리 구조인 레드-블랙 트리를 유지한다. 
-TreeMap의 주요 차별점은 자료구조 레벨에서 범위 검색을 지원하는 메서드들이 제공된다. 
+### TreeMap
+Java의 TreeMap은 키-값 쌍을 저장하는 자료구조로, 키를 기준으로 정렬된 이진 탐색 트리 구조인 레드-블랙 트리를 유지한다.  
+TreeMap의 주요 차별점은 자료구조 레벨에서 범위 검색을 지원하는 메서드들이 제공된다.  
 예를 들어, subMap(), headMap(), tailMap() 메서드를 통해 특정 범위의 키를 손쉽게 검색할 수 있다.
 
-코테에선 자주 쓰지만 실무에서는 자주 안써서 먼저떠오르는 자료구조는 아니라 이렇게 정의해봅니다
+코테에선 자주 쓰지만 실무에서는 자주 안써서 먼저떠오르는 자료구조는 아니라 이렇게 정의해 봅니다
 
 ---
 
-[[section-202407-11일]]
-11일
-===
+<a name="11일"></a>
+## 11일
+
 ### AVL Tree
 AVL 트리(Adelson-Velsky and Landis Tree)는 자가 균형 이진 검색 트리이다.
 
 #### 특징
 1. **균형 조건**: 각 노드의 왼쪽 서브트리와 오른쪽 서브트리 높이 차이가 최대 1이어야 한다.
-2. **균형 유지 방법**: 노드 삽입이나 삭제 시 균형이 깨지면 트리를 회전(rotations)하여 균형을 유지한다.
+2. **균형 유지 방법**: 노드 삽입이나 삭제 시 균형이 깨지면 트리를 회전(rotations)하여 균 형을 유지한다.
 3. **회전 종류**: 단일 회전(Single Rotation)과 이중 회전(Double Rotation)이 있다.
    - 단일 회전: LL 회전, RR 회전
    - 이중 회전: LR 회전, RL 회전
@@ -134,15 +143,13 @@ AVL 트리와 Red-Black 트리는 둘 다 자가 균형 이진 검색 트리(sel
 
 ---
 
-[[section-202407-14일]]
-14일
-===
-### 정렬 성능 및 특징 정리
+<a name="14일"></a>
+## 14일
 
-다음은 버블 정렬, 선택 정렬, 삽입 정렬, 병합 정렬, 퀵 정렬, 힙 정렬의 시간 복잡도, 공간 복잡도와 각 정렬의 특징을 정리한 내용입니다:
+### 정렬 성능 및 특징 정리
+다음은 버블 정렬, 선택 정렬, 삽입 정렬, 병합 정렬, 퀵 정렬, 힙 정렬의 시간 복잡도, 공간  복잡도와 각 정렬의 특징을 정리한 내용입니다:
 
 #### 버블 정렬 (Bubble Sort)
-
 * **시간 복잡도:**
 ** 최선: O(n)
 ** 평균: O(n^2)
@@ -156,7 +163,6 @@ AVL 트리와 Red-Black 트리는 둘 다 자가 균형 이진 검색 트리(sel
 ** 작은 데이터 집합에 적합하지만, 큰 데이터 집합에는 비효율적.
 
 #### 선택 정렬 (Selection Sort)
-
 * **시간 복잡도:**
 ** 최선: O(n^2)
 ** 평균: O(n^2)
@@ -170,7 +176,6 @@ AVL 트리와 Red-Black 트리는 둘 다 자가 균형 이진 검색 트리(sel
 ** 메모리 사용이 적음.
 
 #### 삽입 정렬 (Insertion Sort)
-
 * **시간 복잡도:**
 ** 최선: O(n)
 ** 평균: O(n^2)
@@ -184,7 +189,6 @@ AVL 트리와 Red-Black 트리는 둘 다 자가 균형 이진 검색 트리(sel
 ** 거의 정렬된 배열에 대해 효율적.
 
 #### 병합 정렬 (Merge Sort)
-
 * **시간 복잡도:**
 ** 최선: O(n log n)
 ** 평균: O(n log n)
@@ -198,7 +202,6 @@ AVL 트리와 Red-Black 트리는 둘 다 자가 균형 이진 검색 트리(sel
 ** 크기가 큰 데이터 집합에 대해 효율적.
 
 #### 퀵 정렬 (Quick Sort)
-
 * **시간 복잡도:**
 ** 최선: O(n log n)
 ** 평균: O(n log n)
@@ -212,7 +215,6 @@ AVL 트리와 Red-Black 트리는 둘 다 자가 균형 이진 검색 트리(sel
 ** 최악의 경우를 피하기 위해 랜덤 피벗 선택 등의 기법 사용.
 
 #### 힙 정렬 (Heap Sort)
-
 * **시간 복잡도:**
 ** 최선: O(n log n)
 ** 평균: O(n log n)
@@ -225,58 +227,24 @@ AVL 트리와 Red-Black 트리는 둘 다 자가 균형 이진 검색 트리(sel
 ** 추가적인 메모리 공간을 필요로 하지 않음.
 ** 크기가 큰 데이터 집합에 대해 효율적.
 
-
-
 표로 간단히 요약하면 다음과 같다.
 
-|===
-| 정렬 알고리즘   | 최선 시간 복잡도 | 평균 시간 복잡도 | 최악 시간 복잡도 | 공간 복잡도
-
-| 버블 정렬 (Bubble Sort)
-| O(n)
-| O(n^2)
-| O(n^2)
-| O(1)
-
-| 선택 정렬 (Selection Sort)
-| O(n^2)
-| O(n^2)
-| O(n^2)
-| O(1)
-
-| 삽입 정렬 (Insertion Sort)
-| O(n)
-| O(n^2)
-| O(n^2)
-| O(1)
-
-| 병합 정렬 (Merge Sort)
-| O(n log n)
-| O(n log n)
-| O(n log n)
-| O(n)
-
-| 퀵 정렬 (Quick Sort)
-| O(n log n)
-| O(n log n)
-| O(n^2)
-| O(log n)
-
-| 힙 정렬 (Heap Sort)
-| O(n log n)
-| O(n log n)
-| O(n log n)
-| O(1)
-
-|===
+| 정렬 알고리즘 | 최선 시간 복잡도 | 평균 시간 복잡도 | 최악 시간 복잡도 | 공간 복잡도 |
+| :--- | :--- | :--- | :--- | :--- |
+| 버블 정렬 (Bubble Sort) | O(n) | O(n^2) | O(n^2) | O(1) |
+| 선택 정렬 (Selection Sort) | O(n^2) | O(n^2) | O(n^2) | O(1) |
+| 삽입 정렬 (Insertion Sort) | O(n) | O(n^2) | O(n^2) | O(1) |
+| 병합 정렬 (Merge Sort) | O(n log n) | O(n log n) | O(n log n) | O(n) |
+| 퀵 정렬 (Quick Sort) | O(n log n) | O(n log n) | O(n^2) | O(log n) |
+| 힙 정렬 (Heap Sort) | O(n log n) | O(n log n) | O(n log n) | O(1) |
 
 ---
 
-[[section-202407-16일]]
-16일
-===
+<a name="16일"></a>
+## 16일
+
 ### Diamond Problem in polymorphism
-다이아몬드 문제(Diamond Problem)는 다중 상속(Multiple Inheritance)을 사용하는 객체 지향 프로그래밍에서 발생할 수 있는 모호성 문제 중 하나이다.
+다이아몬드 문제(Diamond Problem)는 다중 상속(Multiple Inheritance)을 사용하는 객체 지향  프로그래밍에서 발생할 수 있는 모호성 문제 중 하나이다.  
 다음과 같은 구조에서 나타난다
 
 상속 구조 : 다이아몬드 문제는 다중 상속을 사용하여 네 개의 클래스가 다음과 같이 상속될 때 발생한다
@@ -285,17 +253,19 @@ AVL 트리와 Red-Black 트리는 둘 다 자가 균형 이진 검색 트리(sel
 3.클래스 D가 클래스 B와 클래스 C를 모두 상속하는 경우.
 
 ex:
+```text
      A
     / \
    B   C
     \ /
      D
+```
 
-모호성: 클래스 D는 클래스 B와 클래스 C를 통해 클래스 A를 두 번 상속받게 됩니다.
-이로 인해 클래스 D에서 클래스 A의 멤버(메서드 또는 필드)를 호출할 때 어느 경로를 통해 상속된 멤버를 호출해야 하는지 모호해지는 문제가 발생합니다
+모호성: 클래스 D는 클래스 B와 클래스 C를 통해 클래스 A를 두 번 상속받게 됩니다.  
+이로 인해 클래스 D에서 클래스 A의 멤버(메서드 또는 필드)를 호출할 때 어느 경로를 통해 상 속된 멤버를 호출해야 하는지 모호해지는 문제가 발생합니다
 
-Java의 경우 다중상속을 언어레벨에서 막고있다.
-그러나 Java8에서 등장한 인터페이스 default구현때문에 해당 문제가 발생 할 수 있는데
+Java의 경우 다중상속을 언어레벨에서 막고있다.  
+그러나 Java8에서 등장한 인터페이스 default구현때문에 해당 문제가 발생 할 수 있는데  
 이럴 경우 명시적으로 어떤 메서드를 사용할지 super라는 키워드를 이용하여 지정하여야한다
 ```java
 public void display() {
@@ -307,42 +277,41 @@ public void display() {
 
 ---
 
-[[section-202407-21일]]
-21일
-===
-### kotlin List 확장함수 binarySearch 주의사항
+<a name="21일"></a>
+## 21일
 
-Kotlin에는 
+### kotlin List 확장함수 binarySearch 주의사항
+Kotlin에는
 ```kotlin
 public fun <T : Comparable<T>> List<T?>.binarySearch(element: T?, fromIndex: Int = 0, toIndex: Int = size): Int
 ```
-binarySearch를 위한 함수가 구현되어있다.
-굉장히 편리한 함수이지만 사용시에 주의할 점이 있는데 binarySearch(이진탐색)은 정렬이 되어야 올바르게 동작하는 알고리즘이다
-위 함수는 List를 정렬후에 binarySearch하지 않는다.
+binarySearch를 위한 함수가 구현되어있다.  
+굉장히 편리한 함수이지만 사용시에 주의할 점이 있는데 binarySearch(이진탐색)은 정렬이 되어야 올바르게 동작하는 알고리즘이다  
+위 함수는 List를 정렬후에 binarySearch하지 않는다.  
 즉 사용전 필수로 정렬해줘야한다.
 
 함수 주석에도 적혀있지만 매번 주석보는것보단 기억하는게 편하니 메모함
 
 ---
-[[section-202407-30일]]
-30일
-===
-### ReentrantLock, ReadWriteLock, StampedLock 성능 비교
 
+<a name="30일"></a>
+## 30일
+
+### ReentrantLock, ReadWriteLock, StampedLock 성능 비교
 - **ReentrantLock**: 하나의 스레드가 중복해서 락을 획득할 수 있는 락, 추가로 조건 객체(Condition)도 지원하여 더 세밀한 제어가 가능. 동시 읽기가 불가능하다.
 
-- **ReadWriteLock**: 읽기와 쓰기를 구분해 읽기는 여러 스레드가 동시에 가능하지만 쓰기는 하나의 스레드만 가능하도록 제어하는 락.
+- **ReadWriteLock**: 읽기와 쓰기를 구분해 읽기는 여러 스레드가 동시에 가능하지만 쓰기는  하나의 스레드만 가능하도록 제어하는 락.
 
 - **StampedLock**: 낙관적 읽기 잠금(잠금이전에 먼저 읽을수 있다.)을 지원해 성능을 높이는 락으로, 기존의 ReadWriteLock보다 가벼운 락을 제공.
 
 위 3개의 Lock의 성능 비교이다
 
-read와 write를 둘다 한다는 가정하에 비교된 성능이다
-write의 비율을 조절해가며 테스트되었다
-읽는데 약간의 지연시간이 있다 가정하고 테스트하면 다음과같다
-StampedLock < ReadWriteLock < ReentrantLock
-순으로 StampedLock이 제일 빠르고 ReentrantLock 제일 느렷다
-그러나 읽기 비율, 읽기의 실행시간, 동시 접근 쓰레드 수에 따라 ReadWriteLock이 ReentrantLock보다 느릴 수 있다.
+read와 write를 둘다 한다는 가정하에 비교된 성능이다  
+write의 비율을 조절해가며 테스트되었다  
+읽는데 약간의 지연시간이 있다 가정하고 테스트하면 다음과같다  
+StampedLock < ReadWriteLock < ReentrantLock  
+순으로 StampedLock이 제일 빠르고 ReentrantLock 제일 느렷다  
+그러나 읽기 비율, 읽기의 실행시간, 동시 접근 쓰레드 수에 따라 ReadWriteLock이 ReentrantLock보다 느릴 수 있다.  
 읽기/쓰기가 섞여 있는 다수 상황에서는 StampedLock이 더 유리하다
 
 출처 : https://youtu.be/nTjW9A-TTtw?si=n7VINbqy_WJPt-rj
