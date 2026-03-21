@@ -5,7 +5,7 @@ keywords: [study, til, lwil]
 
 # 2025년 11월
 
-[이전 달](../10/wil.md)
+[이전 달](../09/wil.md)
 [다음 달](../12/wil.md)
 
 ## 목차
